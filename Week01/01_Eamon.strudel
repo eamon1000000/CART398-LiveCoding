@@ -1,0 +1,10 @@
+// @title W01-01
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Jan 15, 2026
+
+// 01
+s("bd:2 bd:3 bd:2  bd:4, ~ ~ ~ [cp:2/6 cp:4/2 cp cp:5/4], <perc:16 perc:1 perc:9 perc:1>*2, {sh sh sh sh sh sh}")
+  .bank("RolandTR808")
+  .dist("2:1")
+  .chunk(4, x => x.hurry(0.5))
