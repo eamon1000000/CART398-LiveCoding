@@ -1,0 +1,14 @@
+// @title W01-02
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Jan 16, 2026
+
+// 02
+$: s("[bd bd bd bd*4 bd bd bd bd]/2")
+
+$: s("~ sd:3 ~ sd:23").gain(0.4)
+
+$: note("{c e c g cm d em g}, [c e c g d g]")
+.s("sawtooth").lpf(800)
+
+$: s("hh*16").degradeBy(0.4).rib(4,1).scope()
