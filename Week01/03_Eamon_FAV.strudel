@@ -1,0 +1,15 @@
+// @title W01-03
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Jan 19, 2026
+
+//03
+const dbank = "tr909"
+setCps(140/60/4)
+
+$: s("cp!8").gain(.1).sometimesBy(.1, x => x.ply("2 | 4"))._punchcard()
+$: s("bd").struct("{1 0 0 1 0 1 1/4}%8").bank(dbank)._punchcard()
+
+$: s("sd").bank(dbank).beat("4, 12", 16)._punchcard()
+$: note("[em am d g em am/2 g g em am d c em/4 am c g]/2").sound('saw').octave("<0 1 0 -1>").sometimesBy(.3, x => x.ply("2"))._punchcard()
+$: note("[em em d d em em/2 g g em em d d em/4 em g g]/2").sound('square').octave("<0 1 2 3>").sometimesBy(.3, x => x.ply("2"))._punchcard().gain(.2)
