@@ -1,0 +1,14 @@
+// @title W01-04
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Jan 19, 2026
+
+//04
+const dbank = "tr707"
+setCps(140/60/4)
+
+$: s("rim!8").gain(.1).sometimesBy(.8, x => x.ply("8 | 9 | 5 | 4 | 7"))._punchcard().rib(2, 4)
+$: s("bd(<5 4 5 6>,16)").bank(dbank)._punchcard()
+$: s("rim:2 [[rim:3*4] ~ ~]/3 rim:4/2 rim:2/5").bank(dbank).gain(.3)
+
+$: s(" insect:2 insect:3 insect:4/4 insect/3")
