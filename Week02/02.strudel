@@ -1,0 +1,16 @@
+// @title W02-02
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Jan 24, 2026
+
+//kicks
+$: s("bd bd bd bd").bank("korgddm110")
+//snare
+$: s(" sd").euclid("<3  3  3  [4 | 5 | 2]>", "8").bank("korgddm110").room(0.3)
+$: note("<[c,eb,g]!2 [c,f,ab] [d,f,ab]>")
+.arp("[0 [0,3] 1 [2,4]] | [0 [1,4] 0 [3,2]]").degradeBy(0.5)
+
+$: note("<[c,eb,g]!2 [c,f,ab] [d,f,ab]>/2").degradeBy(0.3)
+
+$: s("hh:4(3,16) | [hh:8(7,16) | hh:7(7,16)]")
+$: s("insect:3").room(2)
