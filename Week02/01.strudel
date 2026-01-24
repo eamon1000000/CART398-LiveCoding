@@ -1,0 +1,48 @@
+// @title W02-01
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Jan 24, 2026
+
+
+//effect chains
+var effectChain = effectChain = register('effectChain', (pat) => pat
+  .s("sine")
+  .cutoff(200)
+  .delay(0.5)
+  .room(0.5)
+  .pan("0.75 0.25 0 1 0.4")
+)
+
+var effectChain2 = register('effectChain2', (patm, dist) => dist
+  .delay(0.75)
+  .chorus(.5)
+  .rev()
+)
+
+//trying different things with declared lambda functions
+var reverbP = (reverbp) => reverbp.room("0 .8 1.2 0.5 0 0 2 3 4 5 0.4 2 3 0 0").euclid("<[3 | 7] [4 |2] 5 6>".euclid(1,1), "8 7")
+var distortP = (distortp) => distortp.distort(0.6).distorttype("<0 1 2 3 4 5>")
+
+var reverbChain = register('reverbChain', reverbP)
+var distortChain = register('distortChain', distortP)
+
+//top arp
+$: note("<[[c e g f] | [~ c ~ f]] [c e c e] [d g c e] [[c g c f] | [c g d ~] | [g d c a] | [~ c g b3]]>*4").effectChain2(reverbP).distortChain().gain(0.3)
+
+//panning ambience
+$: note("<[c am g c] [e c e a4]>/4").arp("0 [0,2] 1 [0,2]").effectChain().gain(0.5)
+
+//kicks
+$: s("[bd:4!4 | bd:4!4 | bd:4!4 | bd:4(5,8) | [bd:4(3,8) | bd:6(3,8)]]")
+
+//snare
+$: s("[~ sd:3 ~ [sd:3 | sd:3*2]]").gain(0.1)
+
+//computer droplets
+$: s("<[hh(3,8) | hh:3(5,8)] [hh:4(3,8) | hh:6(5,8)]>/2").effectChain2(distortP).bank("spacedrum").degradeBy(0.4)
+
+//occasional cymbalism
+$: s("fingercymbal/2").degradeBy(0.75).speed(0.6).sometimesBy(0.4, x => x.speed("0.8")).dist(4).room(4).gain(0.02)
+
+//insect band
+$: s("insect | insect:3").euclid("<[3 | 7] [4 |2] 5 6>", 8).gain(0.5).room(0.3).chorus(.5)
