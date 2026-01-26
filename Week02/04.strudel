@@ -1,0 +1,25 @@
+// @title W02-04
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Jan 25, 2026
+
+const db1 = "linn9000"
+const db2 = 'rolandtr909'
+const db3 = 'akaixr10'
+//kick
+$: s("bd:4!4").bank(db2)
+//snare
+$: s("[[~ sd ~ sd] | [~ ~ ~ ~ sd ~ ~ ~ ~ ~ ~ ~ sd sd sd sd] |[~ ~ ~ ~ sd ~ ~ ~ ~ ~ ~ sd sd sd sd sd]]").bank(db1)
+//cowbell (left side)
+$: s("cb:1 ~ cb:1 ~ cb:1 ~ cb:1 cb:1 ~ cb:1 cb:1 cb:1 cb:1 cb:1 cb:1 [cb:1 | cb]").bank(db1).gain("0.25!11 0.07 0.25!4").pan(0)
+//closed hat (right side)
+$: s("[~ ~ hh!2]*4").gain(2).pan(1)
+//shaker
+$: s("sh ~ sh sh sh ~ sh sh sh ~ sh sh sh ~ sh sh").bank(db3)
+//clap
+$: s("[[cp ~ cp ~ cp ~ cp!7 ~!3] | [cp ~ cp ~ ~ ~ cp ~ cp!2 ~ cp!2 ~!3]] ").bank(db2).gain(1.2)
+
+$: note("[c#4 c#4 c#4 c#4 e#4 e#4 e#4 e#4 f#4 f#4 f#4 f#4 g#4 g#4 g#4 g#4]/2").sound("square").gain(1.2).adsr("0.1:0.05:0.2:.2").room(0.3).sometimesBy(.4, x=> x.rev()).hpf(2000)
+$: note("[c#4 c#4 c#4 c#4 e#4 e#4 e#4 e#4 a#4 a#4 f#4 f#4 g#4 d#4 d#4 g#4]/4").sound("supersaw").gain(1.2).adsr("0.1:0.05:0.2:.3").room(3).gain(0.7).sometimesBy(.2, x=> x.rev()).degradeBy(0.2).chunkBack(4, x=>x.add(5))
+$: note("[c#2 c#2 c#2 c#2 e#2 e#2 e#2 e#2 f#2 f#2 f#2 f# g#2 g#2 g#2 d#2]/2").sound("supersaw").gain(1.2).adsr("0.1:0.3:0.3:.2").room(0.4).gain(0.7).lpf(800).sometimesBy(.4, x=> x.rev()).chunkBack(4, x=>x.add(7)).lpf(800)
+
