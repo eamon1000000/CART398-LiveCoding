@@ -27,19 +27,19 @@ var reverbChain = register('reverbChain', reverbP)
 var distortChain = register('distortChain', distortP)
 
 //top arp
-$: note("<[[c e g f] | [~ c ~ f]] [c e c e] [d g c e] [[c g c f] | [c g d ~] | [g d c a] | [~ c g b3]]>*4").effectChain2(reverbP).distortChain().gain(0.3)
+$: note("<[[c e g f] | [~ c ~ f]] [c e c e] [d g c e] [[c g c f] | [c g d ~] | [g d c a] | [~ c g b3]]>*4").effectChain2(reverbP).distortChain().gain("<0.3 0.3 0.3>")
 
 //panning ambience
 $: note("<[c am g c] [e c e a4]>/4").arp("0 [0,2] 1 [0,2]").effectChain().gain(0.5)
 
 //kicks
-$: s("[bd:4!4 | bd:4!4 | bd:4!4 | bd:4(5,8) | [bd:4(3,8) | bd:6(3,8)]]")
+$: s("[bd:18!4 | bd:18!4 | bd:18!4 | bd:18(5,8) | [bd:18(3,8) | bd:18(3,8)]]").bank("rolandtr808")
 
 //snare
 $: s("[~ sd:3 ~ [sd:3 | sd:3*2]]").gain(0.1)
 
 //computer droplets
-$: s("<[hh(3,8) | hh:3(5,8)] [hh:4(3,8) | hh:6(5,8)]>/2").effectChain2(distortP).bank("spacedrum").degradeBy(0.4)
+$: s("<[hh(3,8) | hh:3(5,8)] [hh:4(3,8) | hh:6(5,8)]>/2").effectChain2(distortP).bank("spacedrum").degradeBy(0.4).gain(1.1)
 
 //occasional cymbalism
 $: s("fingercymbal/2").degradeBy(0.75).speed(0.6).sometimesBy(0.4, x => x.speed("0.8")).dist(4).room(4).gain(0.02)
