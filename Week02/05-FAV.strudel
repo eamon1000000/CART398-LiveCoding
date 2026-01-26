@@ -1,0 +1,47 @@
+// @title W02-05
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Jan 26, 2026
+
+const db = "yamaharm50"
+setcpm(20)
+
+//effect chains
+var effectChain = effectChain = register('effectChain', (pat) => pat
+  .s("sine")
+  .cutoff(200)
+  .delay(0.5)
+  .room(0.5)
+  .pan("0.75 0.25 0 1 0.4")
+)
+
+var effectChain2 = register('effectChain2', (patm, dist) => dist
+  .delay(0.75)
+  .chorus(.5)
+  .rev()
+)
+
+//trying different things with declared lambda functions
+var reverbP = (reverbp) => reverbp.room("0 .8 1.2 0.5 0 0 2 3 4 5 0.4 2 3 0 0").euclid("<[3 | 7] [4 |2] 5 6>".euclid(1,1), "8 7")
+var distortP = (distortp) => distortp.distort(0.6).distorttype("<0 1 2 3 4 5>")
+
+var reverbChain = register('reverbChain', reverbP)
+var distortChain = register('distortChain', distortP)
+
+//kicks
+$: s("[bd:8(4,4) | bd:8(5,8) | bd:8(3,8)]").bank(db).gain(1.2)
+$: s("[[bd:11(4,4) | bd:100(4,4)] | [bd:50(5,8) | bd:48(5,8)] | bd:70(3,8)]").bank(db).gain(1.2)
+
+//diving synths
+$: note("[f# a# g# e#]/2").degradeBy(0.2).sound("supersaw").effectChain2(distortP).lpf("<800 700 600 500 400 300 200 300 400 500 600 700>")
+$: note("[f# f# a# g# d# e# e# [d# | a# | c#]]/2").sound("square").lpf("<800 900 1000 1100>").effectChain().gain(1.6)
+$: note("[[f#4 | f#5] | [a#4 | a#5] | [g#4 | g#5] | [e#4 | e#5]]/4").gain(0.7).adsr("0.3:0.6:0.001:0.0001").sound("sawtooth").lpf("<600 600 500 400 300 600>").delay(0.5).room(5)
+
+//bells
+$: s("handbells | handbells:1 | handbells:2 | [handbells:2 handbells:2 handbells] | [handbells:1 handbells:2 handbells handbells handbells:1]/2 | [handbells handbells:1 handbells:1 handbells:2]/2").gain(0.7).delay("<4 2 1 2 5>").room(4).degradeBy(0.3).sometimesBy(0.4, x=>x.speed(0.9))
+
+//computer droplets
+$: s("<[hh(5,16) | hh:3(7,8)] [hh:4(5,8) | hh:6(3,8)]>").effectChain2(distortP).bank("spacedrum").gain(1.1).sometimesBy(.5, x=>x.speed("[0.6 | 0.7 | 0.9]"))
+
+//insect band
+$: s("insect | insect:3").euclid("<[3 | 7] [4 |2] 5 6>", 8).speed("[0.7 | 1]").gain(0.5).delay("<4 2 2 0>").room(0.3).chorus(.5)
