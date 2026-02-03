@@ -1,0 +1,18 @@
+// @title W03-03
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 01, 2026
+
+setCps(120/60/4)
+$: note("[[c a c a c a c a] [[g2 a g2 a g2 a g2 [d |a]] | [[g2 | c] d g2 d g2 [d | d4] g2 [a | d]]]]/2").sound("[supersaw | sawtooth], [bytebeat | z_square]").adsr(".03:.3:.1:.1").warp("0 0.25 0.5 0.75 1").gain(0.6).lpf("<600 800 1000 1200 1400 1600 1800 1600 1400 1200 1000 800>")
+$: note("[[c4 ~ ~ a4 c4 a ~ a4] [[g3 a4 g3 a ~ a ~ [d4 |~]] | [[g3 | c4] ~ ~ [d4 | ~] g3 [~ | d4] [g2 | ~] [ d4 | ~]]]]").sound("[bytebeat | triangle], gm_banjo:1").adsr(".01:.2:.05:.02").degradeBy(0.3).delay(0.1)
+$: note("[[c4 a4] [[g3 a4 g3 a ~ a ~ [d4 |~]] | [[g3 | c4] ~ ~ [d4 | ~] g3 [~ | d4] ~ [ d4 | ~]]]]").sound("gm_distortion_guitar").adsr(".01:.3:.05:.02").degradeBy(0.3).delay(0.1)
+
+
+$: note("[c2@4 g2 a2 g2 a2]/2").sound("gm_synth_bass_2:[1 | 3 | 4?0.8 | 3 | 1]").adsr(".1:.4:2:.4").warp("0 0.25 0.5 0.75 1")
+
+$: s("[[bd:3 , bd:8] | ~] [bd:3 , bd:8] [[bd:3 , bd:8]*2 | [bd:3 , bd:8]*3 | [bd:3 , bd:8]]  [[bd:3 , bd:8] | [bd:3 , bd:8]*2]").gain(0.7)
+$: s("[sd:1, sd:6, [cp | cp:3]](2,8,2)").delay(0.1)
+
+$: s("hh:[2 | 3 ]!16").degradeBy(0.4)
+
