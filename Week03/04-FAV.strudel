@@ -1,0 +1,40 @@
+// @title W03-04
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 02, 2026
+
+setCps(140/60/4)
+
+//bassline
+$: note("[[c2 c2 c2 c2 ~ d2 d2 d2]!3 [a2 a2 a2 a2 ~ ~ [e3 | c2] [e3 | a2]]]/4").sound("wt_digital_echoes").adsr("0.05:0.5:0.4:0.2")
+
+//arpiness
+$: "<[1, 8] [5, [3 | 1]]>*2"
+.off(3/8, add(2)).n("<0 2 0 2 0 2 0 5> | <0 2 0 2 0 2 0 5>")
+.off(1/4, add(4))
+.scale("C:ionian").adsr("0.05:0.2:0.1:0.1").layer(
+x=>x.s("supersaw").vib("<1 2 3 4>").chorus(4).gain(0.4).coarse("<1 16 1 16 1>").degradeBy(0.2),
+x=>x.s("z_square").gain(0.2).vib("<0.2 0 2 0 0>").degradeBy(0.3)
+).punchcard()
+
+// //kicks
+ $: s("bd:1").bank("rolandtr808")
+ $: s("bd:3").delay(0.2).gain(0.4).room(0.4).sometimesBy(0.3, x=>x.euclid("[3 | 5]",8)).lpf(1500).lpa("<.5 .25 .1 .2>").lpenv("<4 2 3 6>")
+
+// //tambourine
+$: s("[tambourine:0 [tambourine:1 | [tambourine:1 tambourine:0]] ~ [[~ tambourine:0]| ~]]/2").degradeBy(0.3)
+ $: s("tambourine:3(1,65,<4 5 8>)").degradeBy(0.9)
+
+// //wood
+ $: s("woodblock").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 0 0").speed(0.75)
+ $: s("woodblock:1").struct("0 0 1 0 0 0 0 0 0 1 0 0 0 0 1 0")
+ $: s("woodblock:10").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 0 0").speed(0.75)
+ $: s("woodblock:6").struct("1 0 0 1 0 0 1 1 0 0 1 0 1 0 0 1").speed(0.75)
+
+// //snare(same pat as wood)
+ $: s("sd").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 0 0").lpf(800).lpa("<.5 .25 .1 .2>").lpenv("<4 2 3 6>")
+
+// //reggaeton every 4 bars
+ $: s("[~!12 bd:4!4]/4")
+ $: s("[[~!4] [~!4] [~!4] [~ [~ sd] ~ sd ~ [~ sd] ~ [sd | sd sd]]]/4").lpf(800).lpa("<.5 .25 .1 .2>/4").lpenv("<4 2 3 6>/4")
+
