@@ -1,0 +1,29 @@
+// @title W04-01
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 04, 2026
+setcps(110/60/4)
+
+$: note("[1 5 8]!11" ).scale("<g:locrian>").layer(
+x=>x.sound("piano").delay(0.3).room(3).gain(0.2).adsr("0.04:0.05:0.2:0.5").lpf(tri.range(0, 6000).slow(16)),
+x=>x.s("sine").gain(0.05).adsr("0.1:0.1:0.1:0.1").lpf(tri.range(0, 5000).slow(15))
+).gain(slider(0.653))
+
+$: note("[3 8 12]!12" ).scale("<g:locrian>").layer(
+x=>x.sound("piano").delay(0.3).room(3).gain(0.2).adsr("0.04:0.05:0.2:0.5").lpf(sine.range(0, 6000).slow(23)),
+).gain(slider(0.202))
+
+$: note("[9 14 6]!10" ).scale("<g:locrian>").layer(
+x=>x.sound("piano").delay(0.3).room(3).gain(0.2).adsr("0.04:0.05:0.2:0.5").lpf(tri.range(0, 7000).slow(27)),
+).gain(slider(0.44))
+
+$: note("[16 21 24 28]!11" ).scale("<g:locrian>").layer(
+x=>x.sound("piano").delay(0.3).room(3).gain(0.2).adsr("[<0.01 0.02 0.04 0.1>]:0.05:0.2:[<0.5 0.4 0.5 0.5 0.7>]").lpf(tri.range(0, 7000).slow(27)),
+).gain(slider(0.596))
+
+$: note("[-11 -7 -4]!11" ).scale("<g:locrian>").layer(
+x=>x.sound("piano").delay(0.3).room(3).gain(0.2).adsr("0.04:0.05:0.2:0.5").lpf(tri.range(0, 4000).slow(50)),
+).gain(slider(0.211))
+
+$: s("gm_bird_tweet:[0 | 1 | 2 | 3 | 6]")
+
