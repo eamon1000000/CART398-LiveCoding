@@ -1,0 +1,24 @@
+// @title W04-03
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 05, 2026
+setcps(140/60/4)
+
+$: s("bd:9 ~ ~ bd:9 ~ ~ ~ ~")
+$: s("rolandtr808_rim:0 ~ ~ rolandtr808_rim:0 ~ ~ ~ ~").crush(5).delay(0.05).lpf(2500).every(4, x=>x.chunk(4, x=>x.speed(0.5))).degradeBy(0.2)
+$: s("rolandtr808_bd:18 ~ ~ rolandtr808_bd:18 ~ ~ ~ ~, mc303_perc:22 ~ ~ mc303_perc:22 ~ ~ ~ ~").every(3, x=>x.crush(4)).degradeBy(0.2)
+$: s("[[~ ~ ~ ~ sd:6 ~ ~ ~]!3 [~ ~ ~ ~ ~ ~ ~ ~ sd:6 ~ ~ sd:6 ~ ~ sd:6 ~]]/4 , [[~ ~ ~ ~ cp:2 ~ ~ ~]!3 [~ ~ ~ ~ ~ ~ ~ ~ cp:2 ~ ~ cp:2 ~ ~ cp:2 ~]]/4").room(0.3)
+$: s("~ [gm_bird_tweet:2, insect] ~ ~ ~ ~ ~ [[gm_bird_tweet:6, insect] [gm_bird_tweet:5, insect]]").speed(2).sometimesBy(0.5, x=>x.ply(3))
+$: s("~ ~ ~ ~ simmonssds400_sd:2 ~ ~ ~, ~ ~ ~ ~ rolandtr808_cp:3 ~ ~ ~").room(0.3).sometimesBy(0.2, x=>x.ply(2))
+$: s("~ ~ ~ ~ rolandmt32_sd:1 ~ ~ ~, ~ ~ ~ ~ rolandmt32_cp:0 ~ ~ ~").room(0.3)
+$: s("~ [mc303_misc:4, akaixr10_misc:2] ~ ~ ~ ~ ~ [[korgm1_misc:9, mc303_fx:1] [mc303_perc:35, korgkrz_fx:0]]").speed(2)
+
+$: n("[1 ~ ~ 1 ~ ~ [~ | 3 | 1] ~ 2 ~ ~ [3 2] ~ ~ ~ ~]/2").layer(
+x=>x.s("square").gain(1).adsr("0.2:0.3:0.4:0.3").sometimesBy(0.5, x=>x.ply(4).delay(0.5)),
+x=>x.s("bytebeat").gain(1).adsr("0.2:0.3:0.4:0.3").sometimesBy(0.5, x=>x.crush(3))
+)
+
+$: note("[c!8 [~ | cb] [~ | cb] cb!6]/4").layer(
+x=>x.s("sine").gain(1).adsr("0.01:0.3:0.4:0.3"),
+  x=>x.s("tri").echo("<[3 | 7] [<4 2>] [5 |2]>", "[0.0625 | 0.125 | 0.166]", "<0.8 0.4 0.2 0.9 0.4>").gain(0.3).adsr("0.1:0.1:0.1:0.1")
+)
