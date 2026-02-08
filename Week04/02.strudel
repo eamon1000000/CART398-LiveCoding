@@ -1,0 +1,32 @@
+// @title W04-02
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 05, 2026
+
+setcps(110/60/4)
+
+$: chord("[C11 Fsus Csus [Eb | Fsus]]/8").voicing().layer(
+  x=>x.s("supersaw").echo("3 | 5", "0.166", "<0.8 0.4>").gain(0.3).adsr("0.1:0.1:0.1:0.1").lpf(tri.range(2000, 6000).slow(12))
+)
+
+$: chord("[C11 [Fsus | Ab] Csus [Eb | Fsus]]/8").voicing().layer(
+  x=>x.s("bytebeat").echo("<5 [<5 3>] 2 4>/2", "[0.125 | 0.0625]", "<0 0 0.2 0.6>").gain(0.2).every(12, degradeBy(0.7)).adsr("0.01:0.1:0.1:0.1"),
+)
+
+$: chord("[C11 [Fsus | Ab] Csus [Eb | Fsus]]/8").voicing().layer(
+  x=>x.s("bytebeat").echo("<[5 | 2] [<5 3>] [3 |8]>", "[0.125 | 0.0625 | 0.25]", "<0.2 1 0 0 0.6>").gain(0.4).every(12, degradeBy(0.7)).adsr("0.01:0.1:0.1:0.1"),
+  x=>x.s("supersaw").echo("<[3 | 7] [<4 2>] [5 |2]>", "[0.0625 | 0.125 | 0.166]", "<0.8 0.4 0.2 0.9 0.4>").gain(0.2).adsr("0.1:0.1:0.1:0.1").lpf(tri.range(2000, 6000).slow(12)).every(4, degradeBy(0.4))
+)
+
+samples({ breaks: 'https://cdn.freesound.org/previews/426/426030_2155630-lq.mp3' })
+$: s("breaks").bpf(900)
+ .chop(16)
+ .rev()// reverse order of chops
+ .loopAt(4) // fit sample into 2 cycles
+.degradeBy(0.2)
+.echo(3, 1/8, 0.3).room(0.2).gain(0.6)
+
+$: s("bd:4!4 | [bd ~ ~ ~ bd ~ ~ ~ bd ~ ~ bd ~ ~ bd ~]")
+$: s("sd:4(2,4)").gain(0.9).delay("<0.3 0 0 0>").lpf(800)
+$: s("sh(12,32)").bank("akaixr10").gain(0.05).sometimesBy(0.4, x=>x.degradeBy(0.4)).speed(0.8).lpf(1500)
+
