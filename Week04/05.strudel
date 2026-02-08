@@ -1,0 +1,24 @@
+// @title W04-05
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 07, 2026
+setCps(150/60/4)
+
+$: n("[7!8 4!6 2!8 [0 2] [5 2] 4!4 2!2 4 [2 5]]/4").scale("a:major").layer(
+  x=>x.s("bytebeat").adsr("0.01:0.1:0.1:0.1"),
+  x=>x.s("gm_acoustic_guitar_nylon").off(1/2, add(4)).adsr("0.01:0.1:0.2:0.2"),
+  x=>x.s("gm_agogo:3").adsr("0.01:0.1:0.2:0.2").gain(0.5),
+  )._punchcard().color("blue")
+
+$: n("[-5@8 -8@6 -10@8 ~ -8@7 ~ -5]/4").scale("a:major").layer(
+  x=>x.s("wt_digital_echoes").gain(0.9).adsr("0.05:0.4:0.5:0.1"),
+  x=>x.s("gm_acoustic_bass").gain(0.3).adsr("0.05:0.4:0.5:0.1").off(1/4, add(4)).echo(2, 1/8, .5)
+)._punchcard().color("yellow")
+
+$: s("bd:2!4").sometimesBy(0.3, x=>x.ply(2))
+$: s("sd:3(2,4,2)").sometimesBy(0.4, x=>x.ply(2).crush(4)).every(8, x=>x.delay(0.25))
+.punchcard()
+
+$: s("hh:6(16,32)").degradeBy(0.4).every(6, x=>x.ply(2).crush(2))
+
+$: s("cajon(16,32)").degradeBy(0.5).every(8, x=>x.delay(0.25))
