@@ -1,0 +1,23 @@
+// @title W04-04
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 07, 2026
+setcps(150/60/4)
+
+$: note("[[d5 g4 d5 b4@2 d5 g4 f#4 b4 d5 g4 a4]!4 [d5 g4 d5 d#5@2 d5 g4 a#4 d#5 d5 g4 a#4]!4]/16").sound("gm_orchestral_harp:4 ").adsr("0.01:0.2:0.1:0.1").sometimesBy(0.2, x=>x.s("gm_orchestral_harp:4, gm_bird_tweet:[2|0|1], gm_fx_brightness:1").echo("[5 | 2]", "[0.125 | 0.0625 | 0.25]", "<0.2 0.2 0 0 0.6>")).lpf(tri.range(800, 7000).slow(16)).room(0.2).pan(rand.range(0.1,0.9)).punchcard().color("yellow")
+
+$: note("[[d5 g4 d5 b4@2 d5 g4 f#4 b4 d5 g4 a4]!2 [d5 g4 d5 d#5@2 d5 g4 a#4 d#5 d5 g4 a#4]!2]/16").layer(
+  x=>x.s("gm_orchestral_harp").echo("<[5 | 2] [<5 3>] [3 |8]>", "[0.125 | 0.0625 | 0.25]", "<0.2 1 0 0 0.6>").gain(0.4).every(12, degradeBy(0.7)).adsr("0.01:0.1:0.1:0.1").room(0.2),
+  x=>x.s("supersaw").echo("<[3 | 7] [<4 2>] [5 |2]>", "[0.0625 | 0.125 | 0.166]", "<0.8 0.4 0.2 0.9 0.4>").gain(0.3).adsr("0.1:0.1:0.1:0.1").lpf(tri.range(2000, 6000).slow(12)).every(4, degradeBy(0.4))
+).color("white")
+
+$: note("[[d3!3 d#2!3 g2!3 a#2!3]!2 [d3!3 d#2!3 g2!3 b2!3]!2]/16").sound("gm_string_ensemble_1").lpf(300).adsr("0.01:0.4:0.2:0.2")
+
+//funk
+$: s("sh:0").struct("[0 0 0 [1 | 0] 0 0 1 0 0 0 1 0 1 0 0 0]/4").speed(0.75).sometimesBy(0.1, x=>x.ply(3)).room(0.4).delay(0.3)
+$: s("sh:2").struct("[0 0 1 0 0 0 0 0 0 1 0 0 0 0 1 0]/4").gain(0.5).sometimesBy(0.1, x=>x.crush(6)).room(0.3)
+
+//occasional cymbal
+$: s("fingercymbal/2").degradeBy(0.75).speed("0.6 | 0.4").sometimesBy(0.4, x => x.speed("0.8")).dist(4).room(4).gain(0.1)
+
+$: s("[marktrees:0 | marktrees:1 | marktrees:2]/8").gain(0.5).room(0.3)
