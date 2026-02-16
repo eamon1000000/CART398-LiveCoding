@@ -1,0 +1,22 @@
+// @title W05-03
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 12, 2026
+
+samples('github:eamon1000000/strudelRepo')
+
+
+
+$: s("luxKick:[1 2 2 3]([3 5 3],8,<0 3 4>)")
+
+$: arrange(
+  [8, "[cajon , hh:6]"],
+  [8, "[[[cajon , hh:6] ~ ~ [cajon , hh:6]][~ ~ [cajon , hh:6] ~][[cajon , hh:6] [cajon , hh:6] ~ [cajon , hh:6]][~ ~ [cajon , hh:6] ~] [[cajon , hh:6] ~ ~ [cajon , hh:6]][~ ~ [cajon , hh:6] ~][[cajon , hh:6] ~ [cajon , hh:6] ~][[cajon , hh:6] ~ [cajon , hh:6] ~][[cajon , hh:6] [cajon , hh:6] [cajon , hh:6] ~][~ ~ [cajon , hh:6] [cajon , hh:6]][[cajon , hh:6] ~ [cajon , hh:6] ~][[cajon , hh:6] ~ [cajon , hh:6] ~][[cajon , hh:6] ~ ~ [cajon , hh:6]][~ ~ ~ [cajon , hh:6]][[cajon , hh:6] [cajon , hh:6] [cajon , hh:6] ~][[cajon , hh:6] ~ [cajon , hh:6] [cajon , hh:6]]]/4"]
+).s().gain(1)
+
+
+$: arrange(
+  [8, "[1 2 1 2 1 2 1 2]".add("[5 | 12 | 8 |2 | 0 ]*8")],
+  [8, "[[[5 2] [2 3] [3 3] 4]!4]/2".add("[5 | 12 | 8 |2 | 0 ]*8")]
+).n().scale("a:major").s("gm_flute").adsr(".001:0.3:0.3:0.1").degradeBy(0.6).echo(4, 2/16, .4)
+
