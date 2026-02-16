@@ -1,0 +1,62 @@
+// @title W05-02
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 12, 2026
+setcps(145/60/4)
+
+samples('github:eamon1000000/strudelRepo')
+
+/////////////////////////////////////////
+//STOP AND START OVER FOR FULL ARRANGMENT
+/////////////////////////////////////////
+
+//Melody 1 arangement - chiptune melody
+$: arrange(
+  [8, "[<7@8 [~ ~ 3 3 3] ~> 4@6 ~!8 <[0 2] ~ [7 9 0 0]> [~ 2] ~!3 4 <2 [2 0 4]> ~ 4 [2 5]]/2"],
+  [8, "[7!8 4!6 2!8 [0 2] [5 2] 4!4 2!2 4 [2 5]]/4"],
+  [16, "[<7 7 7 11> <7 7 7 11> <7 7 7 7> <7 7 7 7> <7 4 8 [5 11]> <7 7 8 [11 5]> <7 9 8 5> <7 2 [8| 9] 6>  <4 [4,9]> 4 <4 [4,9]> 4 <4 [4 4,9 9]> 4 2 <2 -1> 2 <2 2 9 2> <2 2 9 2> <2 2 9 2> 2 2 <[0 2] [0 2] [0 7] [9 5]> <[5 2] [11 5]> <4 5 4 9> <4 5 4 9> <4 5 4 9> <4 5 4 9> 2 2 4 [2 5]]/4"],
+).n().scale("a:major").layer(
+  x=>x.s("supersaw").adsr("0.01:0.1:0.1:0.1").lpf("800 900").lpa("1 .25 .1 .01").lpenv("4 2 5"),
+  x=>x.s("gm_distortion_guitar:4").adsr("0.01:0.2:0.2:0.2").gain(0.6).sometimesBy(0.2, x=>x.s("sine").adsr("0.05:0.1:0.1:0.1"))
+).color("blue")
+
+//Drilling bell melody
+$: arrange(
+  [9, "[7!8 4!6 2!8]/2"],
+  [15, "~"],
+  [8, "[7!8 4!6 2!8 [0 2] [5 2] 4!4 2!2 4 [2 5]]/4"],
+).n().scale("a:major").layer(
+  x=>x.s("gm_epiano2").off(1/2, add(4)).adsr("0.01:0.1:0.2:0.2").gain(0.4).ply("<1 3 2 4 2>"),
+).punchcard().color("pink")
+
+
+//Baseline
+$: arrange(
+  [8, "~"],
+  [24, "[-5@8 -8@6 -10@8 ~ -8@7 ~ -5]/4"]
+).n().scale("d:major").layer(
+  x=>x.s("wt_digital_echoes").gain(0.9).adsr("0.05:0.4:0.5:0.1"),
+  x=>x.s("gm_acoustic_bass").gain(0.3).adsr("0.05:0.4:0.5:0.1").off(1/4, add(4)).echo(2, 1/8, .5),
+  x=>x.s("gm_electric_bass_pick:1").gain(0.4).adsr("0.1:0.4:0.5:0.1")
+)
+
+//Kicks
+$: arrange(
+  [16, "~"],
+  [16, "luxKick:2!4"],
+  [8, "luxKick:4(3,8)"]
+).s().sometimesBy(0.3, x=>x.ply(2)).color("white")
+
+//Marching band realness
+$: arrange(
+  [8, "~"],
+  [8, "[[[cajon , hh:6] ~ ~ [cajon , hh:6]][~ ~ [cajon , hh:6] ~][[cajon , hh:6] [cajon , hh:6] ~ [cajon , hh:6]][~ ~ [cajon , hh:6] ~] [[cajon , hh:6] ~ ~ [cajon , hh:6]][~ ~ [cajon , hh:6] ~][[cajon , hh:6] ~ [cajon , hh:6] ~][[cajon , hh:6] ~ [cajon , hh:6] ~][[cajon , hh:6] [cajon , hh:6] [cajon , hh:6] ~][~ ~ [cajon , hh:6] [cajon , hh:6]][[cajon , hh:6] ~ [cajon , hh:6] ~][[cajon , hh:6] ~ [cajon , hh:6] ~][[cajon , hh:6] ~ ~ [cajon , hh:6]][~ ~ ~ [cajon , hh:6]][[cajon , hh:6] [cajon , hh:6] [cajon , hh:6] ~][[cajon , hh:6] ~ [cajon , hh:6] [cajon , hh:6]]]/4"]
+).s().gain(1).color("magenta")
+
+//snareeeee
+$: arrange(
+  [16, "~"],
+  [8, "sd:3(2,4,2)"],
+  [8, "~"],
+  [8, "sd:3(2,4,2)"],
+).s().sometimesBy(0.2, x=>x.ply(2).crush(4)).every(8, x=>x.delay(0.25)).gain(0.4)
