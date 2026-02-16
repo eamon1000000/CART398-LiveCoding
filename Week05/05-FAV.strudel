@@ -1,0 +1,76 @@
+// @title W05-05
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 16, 2026
+
+samples('github:eamon1000000/strudelRepo')
+
+/////////////////////////////////////////
+//STOP AND START OVER FOR FULL ARRANGMENT
+/////////////////////////////////////////
+
+//Melody 1 arangement - chiptune melody
+$: arrange(
+  [8, "[<7@8 [~ ~ 3 3 3] ~> 4@6 ~!8 <[0 2] ~ [7 9 0 0]> [~ 2] ~!3 4 <2 [2 0 4]> ~ 4 [2 5]]/2"],
+  [8, "[7!8 4!6 2!8 [0 2] [5 2] 4!4 2!2 4 [2 5]]/4"],
+  [16, "[<7 7 7 11> <7 7 7 11> <7 7 7 7> <7 7 7 7> <7 4 8 [5 11]> <7 7 8 [11 5]> <7 9 8 5> <7 2 [8| 9] 6>  <4 [4,9]> 4 <4 [4,9]> 4 <4 [4 4,9 9]> 4 2 <2 -1> 2 <2 2 9 2> <2 2 9 2> <2 2 9 2> 2 2 <[0 2] [0 2] [0 7] [9 5]> <[5 2] [11 5]> <4 5 4 9> <4 5 4 9> <4 5 4 9> <4 5 4 9> 2 2 4 [2 5]]/4"],
+).n().scale("a:major").layer(
+  x=>x.s("supersaw").adsr("0.01:0.1:0.1:0.1").lpf("800 900").lpa("1 .25 .1 .01").lpenv("4 2 5"),
+  x=>x.s("gm_electric_guitar_muted:4").adsr("0.01:0.2:0.2:0.2").gain(0.9).sometimesBy(0.2, x=>x.s("sine").adsr("0.05:0.1:0.1:0.1"))
+).color("magenta")
+
+//Drilling bell melody
+$: arrange(
+  [9, "[7!8 4!6 2!8]/2"],
+  [15, "~"],
+  [8, "[7!8 4!6 2!8 [0 2] [5 2] 4!4 2!2 4 [2 5]]/4"],
+).n().scale("a:major").layer(
+  x=>x.s("gm_epiano2").off(1/2, add(4)).adsr("0.01:0.1:0.2:0.2").gain(0.4).ply("<1 3 2 4 2>"),
+).punchcard().color("pink")
+
+
+//Baseline
+$: arrange(
+  [8, "~"],
+  [24, "[-5@8 -8@6 -10@8 ~ -8@7 ~ -5]/4"]
+).n().scale("d:major").layer(
+  x=>x.s("wt_digital_echoes").gain(0.9).adsr("0.05:0.4:0.5:0.1"),
+  x=>x.s("gm_acoustic_bass").gain(0.3).adsr("0.05:0.4:0.5:0.1").off(1/4, add(4)).echo(2, 1/8, .5),
+  x=>x.s("gm_electric_bass_pick:1").gain(0.4).adsr("0.1:0.4:0.5:0.1")
+)
+
+
+//perc arrangement 
+$: arrange(
+  [8, "[[~ ~ ~ ~ sd:6 ~ ~ ~]!3 [~ ~ ~ ~ ~ ~ ~ ~ sd:6 ~ ~ sd:6 ~ ~ sd:6 ~]]/4 , [[~ ~ ~ ~ cp:5 ~ ~ ~]!3 [~ ~ ~ ~ ~ ~ ~ ~ cp:5 ~ ~ cp:5 ~ ~ cp:5 ~]]/4"],
+  [8, "[[~ ~ ~ ~ [luxPerc, luxPerc:2] ~ ~ ~]!3 [~ ~ ~ ~ ~ ~ ~ ~ [luxPerc, luxPerc:2] ~ ~ [luxPerc:3, luxPerc:2] ~ ~ [luxPerc, luxPerc:2] ~]]/4 , [[~ ~ ~ ~ cp:2 ~ ~ ~]!3 [~ ~ ~ ~ ~ ~ ~ ~ cp:2 ~ ~ cp:2 ~ ~ cp:2 ~]]/4"]
+).s().room(0.3)
+
+$: arrange(
+  [8, "~"],
+  [8, "~ [luxPerc, luxPerc:2] ~ ~ ~ ~ ~ [[luxPerc, luxPerc:2] [luxPerc, luxPerc:2]]"],
+  [8, "~ [luxPerc, luxPerc:2] ~ [[luxPerc, luxPerc:2] [luxPerc, luxPerc:2]] ~ [luxPerc, luxPerc:2, cp:5] <[luxPerc, luxPerc:2, cp:5] ~ ~>  [[luxPerc, luxPerc:2] [luxPerc, luxPerc:2]]"]
+
+).s().speed(2)
+
+$: arrange(
+  [8, "~"],
+  [8, " ~ [luxPerc:4, insect:2] ~ ~ ~ ~ ~ [[luxPerc:4, insect:2] [luxPerc:4, insect]]"]
+).s().speed(2).sometimesBy(0.5, x=>x.ply(2))
+
+
+//kick arrangement, 16 euclidan, 8 jersey
+$: arrange(
+  [16, "luxKick:1 ~ ~ luxKick:1 ~ ~ ~ ~"],
+  [8, "[luxKick:1 ~ ~ ~ luxKick:1 ~ ~ ~ luxKick:1 ~ ~ luxKick:1 ~ ~ luxKick:1 ~]"]
+).s().gain(0.6)
+
+$: arrange(
+  [16, "luxKick:1 ~ ~ luxKick:1 ~ ~ ~ ~"],
+  [8, "luxKick:1"]
+).s().crush(6).delay(0.05).lpf(2500).every(4, x=>x.chunk(4, x=>x.speed(0.5))).degradeBy(0.2).gain(0.9)
+
+
+//+ coin noise
+$: s("~ ~ ~ ~ luxPerc:5 ~ ~ ~, ~ ~ ~ ~ luxPerc:5 ~ ~ ~").room(0.3).speed("<1 1 1 1 1 1 1 0.5>").sometimesBy(0.2, x=>x.ply(2).speed(0.8)).gain(0.7)
+
