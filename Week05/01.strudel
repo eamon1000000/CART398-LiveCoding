@@ -1,0 +1,28 @@
+// // @title W05-01
+// // @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// // @by eamon1000000
+// // @date Feb 15, 2026
+setcps(110/60/4)
+
+samples('github:eamon1000000/strudelRepo')
+
+
+$: s("copingMech").scrub("{<0.1 0.3> .2@3 0.4!2 <0.9@2 0.3> <0.65 0.48@3> .2@3 0.5 <0.2!2 0.6:1>}/2").delay(0.3).speed(1).gain(0.3).lpf(1000)
+
+//funk
+$: s("hh:3").struct("[0 0 0 [1 | 0] 0 0 1 0 0 0 1 0 1 0 0 0]").speed(0.75).sometimesBy(0.1, x=>x.ply(3)).room(0.4).delay(0.3)
+$: s("hh:3").struct("[0 0 1 0 0 0 0 0 0 1 0 0 0 0 1 0]").gain(0.9).sometimesBy(0.1, x=>x.crush(6)).room(0.3)
+
+
+$: s("[marktrees:0 | marktrees:1 | marktrees:2]/8").gain(0.5).room(0.3)
+
+
+$: s("[bd ~ ~ ~]")
+$: s("[bd:2]!2").delay(0.25).echo("<4 2 6>", 1/4, 0.3).gain(0.3)
+$: s("bd(3,8), bd:2(5,8)").gain(0.3)
+
+
+$: s("cajon").struct("[[1 0 0 1][0 0 1 0][1 1 0 1][0 0 1 0] [1 0 0 1][0 0 1 0][1 0 1 0][1 0 1 0][1 1 1 0][0 0 1 1][1 0 1 0][1 0 1 0][1 0 0 1][0 0 0 1][1 1 1 0][1 0 1 1]]/4").layer(
+  x=>x.s("sd").degradeBy(0.3).sometimesBy(0.6, x=>x.ply(1))
+)
+
