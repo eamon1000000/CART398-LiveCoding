@@ -1,0 +1,81 @@
+// @title W06-04
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 22, 2026
+samples('github:eamon1000000/strudelRepo')
+
+let sec1 = stack(
+  s("bass").splice(256,  "0 1 [2 3 0]@2 3 0@2 7")
+)
+
+let sec2 = stack(
+  s("bass").splice(256,  "0 1 [6 3 200]@2 50 0@2 7")
+)
+
+let sec3 = stack(
+  s("bass").splice(256,  "100 101 [106 103 100]@2 157 100@2 107")
+)
+
+let sec4 = stack(
+  s("bass").splice(256,  "10 15 30 200 100 105 10 10")
+)
+
+let sec5 = stack(
+  s("bass").splice(256,  "10 15 30 200 100 157 200 [230 2]")
+)
+
+let sec6 = stack(
+  s("bass").splice(148,  "12 19 [100 40 2]@2"),
+  n("[1@2 [3 7] 4@2 ~ [3 [~ 4 5]] [7 [7 <3 9>]]]/4").scale("C:major").sound("gm_acoustic_guitar_steel:5").gain(1).delay(0.4).room(0.3)
+)
+
+$: arrange(
+  [3, sec1],
+  [1,sec2],
+  [4, sec3],
+  [4, sec4],
+  [4, sec5],
+  [8, sec6]
+)
+
+let seca = stack(
+  s("bg:1").splice(4,  "0 1 [2 3 ~]@2 3 ~@2 2").echo(3, 1 ,0.3).gain(0.05).room(0.4),
+  s("bd:3 ~ bd:3 ~ ~ bd:3 ~ [bd:3 | ~] ").bank("rolandtr909"),
+  s("rim!16").n("0 2 3 4").degradeBy(0.6).bank("rolandtr909").gain(0.2)
+)
+
+let secb = stack(
+  s("bg:1").splice(4,  "4 1 [~ ~ 0]@2 3 1 ~ 2").echo(3, 1 ,0.3).gain(0.05).room(0.4),
+  s("bd:3 ~ bd:3 ~ ~ bd:3 ~ [bd:3 | ~] ").bank("rolandtr909"),
+  s("rim(12,32)").n("0 2 3 4").degradeBy(0.2).bank("rolandtr909").gain(0.2),
+  s("sh(5,8)")
+)
+
+let secc = stack(
+  s("bg:0").splice(4,  "0 1 [2 3 ~]@2 3 ~@2 2").echo(3, 1 ,0.3).gain(0.05).room(0.4),
+  s("bd:3 ~ bd:3 ~ ~ bd:3 ~ [bd:3 | ~] ").bank("rolandtr909"),
+  s("rim([3 5],8)").n("0 2 3 4").degradeBy(0.6).bank("rolandtr909").gain(0.2)
+)
+
+let secd = stack(
+  s("bg:0").splice(4,  "0 1 [2 3 ~]@2 3 ~@2 2").echo(3, 1 ,0.3).gain(0.05).room(0.4),
+  s("bd:3 ~ ~ ~ bd:3 ~ ~ ~").bank("rolandtr909"),
+  s("rim([3 5],8)").n("0 2 3 4").degradeBy(0.2).bank("rolandtr909").gain(0.2)
+)
+
+let sece = stack(
+  s("bg:0").splice(4,  "0 1 [2 3 ~]@2 3 ~@2 2").echo(3, 1 ,0.3).gain(0.05).room(0.4),
+  s("bd:3 ~ ~ ~ bd:3 ~ ~ ~ bd:3 ~ ~ bd:3 ~ ~ bd:3 ~").bank("rolandtr909"),
+  s("rim(6,32)").n("0 2 3 4").bank("rolandtr909").gain(0.2)
+)
+
+$: arrange(
+  [4, seca],
+  [4, secc],
+  [4, secd],
+  [4, sece],
+  [8, secb]
+)
+
+
+
