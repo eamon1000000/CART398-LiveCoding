@@ -1,0 +1,66 @@
+// @title W06-03
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 22, 2026
+samples('github:eamon1000000/strudelRepo')
+
+
+
+
+$: s("fingercymbal/2").degradeBy(0.75).speed(0.6).sometimesBy(0.4, x => x.speed("0.8")).dist(4).room(4).gain(0.02)
+
+
+let sec1 = stack(
+  chord("[[D@2 Bsus]!4 [G@2 Esus]!4]/8").voicing().sound("piano").adsr("0.01:0.4:0.4:0.4")
+)
+
+let sec2 = stack(
+  chord("[[D@2 Bsus]!4 [G@2 Esus]!4]/8").voicing().sound("piano").adsr("0.01:0.4:0.4:0.4"),
+  note("[[d5 g4 d5 b4@2 d5 g4 f#4 b4 d5 g4 a4]!2 [d5 g4 d5 e5@2 c5 g4 a4 f#5 d5 g4 a4]!2]/8").sound("gm_acoustic_guitar_nylon:1, gm_orchestral_harp:4").adsr("0.05:0.3:0.3:0.3").sometimesBy(0.2, x=>x.s("gm_orchestral_harp:4, gm_bird_tweet:[2|0|1], gm_fx_brightness:1").echo("[5 | 2]", "[0.125 | 0.0625 | 0.25]", "<0.2 0.2 0 0 0.6>")).lpf(tri.range(800, 7000).slow(16)).room(0.2).pan(rand.range(0.1,0.9))
+)
+
+let sec3 = stack(
+  chord("[[D@2 Bsus]!4 [G@2 Esus]!4]/8").voicing().sound("piano").adsr("0.01:0.4:0.4:0.4").sometimesBy(0.2, x=>x.s("gm_acoustic_guitar_nylon:1, piano , gm_fx_brightness:1")),
+  note("[[d5 g4 d5 b4@2 d5 g4 f#4 b4 d5 g4 a4]!2 [d5 g4 d5 e5@2 c5 g4 a4 f#5 d5 g4 a4]!2]/8").sound("gm_acoustic_guitar_nylon:1, gm_orchestral_harp:4").adsr("0.05:0.3:0.3:0.3").sometimesBy(0.2, x=>x.s("gm_orchestral_harp:4, gm_bird_tweet:[2|0|1], gm_fx_brightness:1").echo("[5 | 2]", "[0.125 | 0.0625 | 0.25]", "<0.2 0.2 0 0 0.6>")).lpf(tri.range(800, 7000).slow(16)).room(0.2).pan(rand.range(0.1,0.9))
+)
+
+let sec4 = stack(
+  note("[[d5 g4 d5 b4@2 d5 g4 f#4 b4 d5 g4 a4]!2 [d5 g4 d5 e5@2 c5 g4 a4 f#5 d5 g4 a4]!2]/8").sound("gm_acoustic_guitar_nylon:1, gm_orchestral_harp:4").adsr("0.05:0.3:0.3:0.3").sometimesBy(0.2, x=>x.s("gm_orchestral_harp:4, gm_bird_tweet:[2|0|1], gm_fx_brightness:1").echo("[5 | 2]", "[0.125 | 0.0625 | 0.25]", "<0.2 0.2 0 0 0.6>")).lpf(tri.range(800, 7000).slow(16)).room(0.2).pan(rand.range(0.1,0.9))
+)
+
+let sec1D = stack(
+  s("luxperc:2 ~").speed("0.2 | 0.23 | 0.32 | 0.34 | 0.25").degradeBy(0.8).sometimesBy(0.2, x=>x.ply(2)).echo(2, 1, 0.3).room(0.2).size(2).gain(0.2),
+  s("tambourine:<0 0 2>!4").gain(1).ply("<2 3>")
+)
+
+let sec2D = stack(
+  s("luxperc:2 ~").speed("0.2 | 0.23 | 0.32 | 0.34 | 0.25").degradeBy(0.8).sometimesBy(0.2, x=>x.ply(2)).echo(2, 1, 0.3).room(0.2).size(2).gain(0.2),
+  s("tambourine:<0 0 2>!4").gain(1).ply("<2 3>"),
+  s("[mridangam_ardha:6!6 ~!18]/4").echo(2, 0.75, 0.1).room(0.2).size(2).speed(0.8)
+)
+
+let sec3D = stack(
+  s("[bg:1 | bg | bg:2]").echo(2, 1, 0.3).room(0.2).size(2).gain(0.2),
+  s("tambourine:<0 0 2>!4").gain(1).ply("<2 3>"),
+  s("[mridangam_ardha:6!6 ~!18]/4").echo(2, 0.75, 0.1).room(0.2).size(2).speed(0.8)
+)
+
+let sec4D = stack(
+  s("insect | insect:3").euclid("<[3 | 7] [4 |2] 2 6>", 8).gain(0.5).room(0.3).chorus(.5).sometimes(x=>x.ply(3))
+)
+
+$: arrange(
+  [4, sec1],
+  [4, sec2],
+  [4, sec3],
+  [4, sec4],
+  [4, sec2],
+  [2, sec3]
+)
+
+$: arrange(
+  [3, sec1D],
+  [3, sec2D],
+  [3, sec3D],
+  [3, sec4D]
+)
