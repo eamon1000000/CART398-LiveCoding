@@ -1,0 +1,53 @@
+// @title W06-01
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 21, 2026
+setcps(120/60/4)
+
+$: note("<d3 f2 g3 bb2>")
+     .sound("gm_piccolo").gain(0.7)
+
+
+let db = "concertmatemg1"
+
+ 
+
+let sec1 = stack(
+   note("[[d3 bb3]!4 [d3 [bb3 [bb3 bb3 ~ ~]]]!2 [d3 [bb3 [bb3 bb3 bb3 ~]]] [d3 [bb3 [bb3 bb3 ~ ~]]]]/8").s("gm_pan_flute").adsr("0.01:0.2:0.3:0.1"),
+   note("<g2 d3 bb3/6>").sound("gm_fx_soundtrack").slow(1).delay(0.4).lpf(2000).gain(0.7).velocity("<0.8 0.9 1.0>"),
+   s("bd").struct("1 0 0 0 1 0 0 0 0 0 0 0 0 [1 | 0] 1 0").speed(0.8).bank(db),
+   s("woodblock:[3 5 2]").struct("1 0 [1 1] 0 1 0 1 0 0 0 1 0 1 0 1 1").speed(0.8),
+)
+
+let sec2 = stack(
+   note("[[d3 bb3]!4 [d3 [bb3 [bb3 bb3 ~ ~]]]!2 [d3 [bb3 [bb3 bb3 bb3 ~]]] [d3 [bb3 [bb3 bb3 ~ ~]]]]/8").off(3/8,x=> x.add("4")).s("gm_pan_flute").adsr("0.01:0.2:0.3:0.1"),
+   note("<g2 d3 bb3/6>").sound("gm_fx_soundtrack").slow(1).delay(0.4).lpf(2900).gain(0.7).velocity("<0.8 0.9 1.0>"),
+   s("bd").struct("1 0 0 0 1 0 0 0 0 0 0 0 0 [1 | 0] 1 0").speed(0.8).bank(db),
+   s("woodblock:[3 4]").struct("1 0 [1 1] 0 1 0 1 0 0 0 1 0 1 0 1 1").speed(0.8),
+   s("sh").struct("1 0 0 1 0 0 0 0 0 0 1 0 1 0 0 0").speed(0.7).bank("akailinn").gain(0.5),
+   s("ht").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 1 0").speed(0.75).bank("akaixr10"),
+)
+
+let sec1a = stack(
+   note("[[d3 bb3]!4 [d3 [bb3 [bb3 bb3 bb3 ~]]]!4]/8").s("gm_pan_flute").adsr("0.01:0.2:0.3:0.1"),
+   s("ht").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 1 0").speed(0.75).bank("akaixr10"),
+   s("cp").struct("1 0 0 1 0 0 1 1 0 0 1 0 1 0 0 1").speed(1).bank("akailinn").lpf(800).gain(0.5),
+)
+
+let sec1b = stack(
+   note("[[d3 bb3]!4 [d3 [bb3 [bb3 bb3 bb3 ~]]]!4]/8").s("gm_pan_flute").adsr("0.01:0.2:0.3:0.1"),
+   s("ht").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 1 0").speed(0.75).bank("akaixr10"),
+   s("cp").struct("1 0 0 1 0 0 1 1 0 0 1 0 1 0 0 1").speed(1).bank("akailinn").lpf(800).gain(0.5),
+  s("bd").struct("1 0 0 0 1 0 0 0 0 0 0 0 0 [1 | 0] 1 0").speed(0.8).bank(db),
+   s("woodblock:[3 4]").struct("1 0 [1 1] 0 1 0 1 0 0 0 1 0 1 0 1 1").speed(0.8),
+)
+
+$: note("[[d3 bb3]!4 [d3 [bb3 [bb3 bb3 ~ ~]]]!4]/8").s("gm_pan_flute:3").adsr("0.01:0.2:0.3:0.1")
+
+$: arrange(
+  [8, sec1],
+  [4, sec2],
+  [4, sec1a],
+  [4, sec1b],
+  [4, sec2]
+)
