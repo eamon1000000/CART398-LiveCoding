@@ -2,6 +2,10 @@
 // @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
 // @by eamon1000000
 // @date Feb 22, 2026
+
+//Command+Shift+R (macOS) or Ctrl+Shift+R (Windows/Linux)//
+//In order to refresh cache and retrieve new samples//
+
 samples('github:eamon1000000/strudelRepo')
 
 let sec1 = stack(
