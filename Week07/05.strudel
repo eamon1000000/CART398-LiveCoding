@@ -1,0 +1,48 @@
+// @title W07-05
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 02, 2026
+
+setCps(140/60/4)
+samples('github:eamon1000000/strudelRepo')
+
+//vocal stim chops
+$: arrange(
+  [8, "[[1 2]!4 [3 5]!2 [4 8]!6 [2 7]!4]/4"],
+  [8, "[[1 [2 [2 | 5]]]!4 [3 [3 5]]!2 [4 8]!3 [5 8]!3 [11 7]!4]/4"],
+  [8, "[[1 [2 | 5]]!4 [3 5]!2 [4 8]!6 [2 7]!4]/2"]
+).n().scale("d:ionian").layer(
+  x=>x.s("gm_choir_aahs").n("0 1 2").vib("<1 2 3 4>").chorus(4).gain(1).degradeBy(0.2).echo(2, 1/8, 0.2),
+  x=>x.s("gm_flute:1").gain(0.5).vib("<0.2 0 2 0 0>").degradeBy(0.3)
+)
+
+//sine backing
+$: arrange(
+  [8, "[[1 2]!4 [3 5]!2 [4 8]!6 [2 7]!4]/4"],
+  [8, "[[1 [2 [2 | 5]]]!4 [3 [3 5]]!2 [4 8]!3 [5 8]!3 [11 7]!4]/4"],
+  [8, "[[1 [2 | 5]]!4 [3 5]!2 [4 8]!6 [2 7]!4]/2"]
+).n().scale("d:ionian").layer(
+  x=>x.s("sine").chorus(4).gain(0.4).echo(2, 1/8, 0.4),
+  x=>x.s("sine").gain(0.4)
+)
+
+
+//magic drums
+$: s("9000_bd")
+$: s("9000_bd").delay(0.2).gain(0.4).room(0.4).sometimesBy(0.3, x=>x.euclid("[3 | 5]",8)).lpf(1500).lpa("<.5 .25 .1 .2>").lpenv("<4 2 3 6>")
+
+$: s("[luxPerc:5 [luxPerc:5 | [luxPerc:5 luxPerc:5]] ~ [[~ luxPerc:5]| ~]]/2").speed("<1 0.8 1.2 1>").gain(0.5).room(0.3).degradeBy(0.3)
+$: s("luxPerc:5(1,65,<4 5 8>)").speed("<0.6 1.1 0.8 1.3>").gain(0.3).room(0.4).degradeBy(0.9)
+
+$: s("mridangam_ka").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 0 0").speed(0.75)
+$: s("mridangam_ka:3").struct("0 0 1 0 0 0 0 0 0 1 0 0 0 0 1 0")
+$: s("mridangam_chaapu:[0 3 5]").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 0 0").speed(0.75).gain(0.5)
+$: s("mridangam_nam:[0 2 4]").struct("1 0 0 1 0 0 1 1 0 0 1 0 1 0 0 1").speed(0.75).gain(0.5)
+
+$: s("[mridangam_dhi, cp:5]").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 0 0").lpf(800).lpa("<.5 .25 .1 .2>").lpenv("<4 2 3 6>")
+
+$: s("[~!12 9000_bd!4]/4")
+$: s("[[~!4] [~!4] [~!4] [~ [~ [mridangam_dhi, cp:5]] ~ [mridangam_dhi, cp:5] ~ [~ [mridangam_dhi, cp:5]] ~ [[mridangam_dhi, cp:5] | [mridangam_dhi, cp:5] [mridangam_dhi, cp:5]]]]/4").lpf(800).lpa("<.5 .25 .1 .2>/4").lpenv("<4 2 3 6>/4")
+
+$: s("luxPerc:5(5,16)").speed("<1 0.8 1.3 0.7 1.1 0.9 0.6>").gain(0.35).room(0.5)
+$: s("luxPerc:5(3,16,7)").speed("<0.6 1.2 0.8>").gain(0.15).room(0.6).delay(0.15)
