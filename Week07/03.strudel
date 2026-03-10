@@ -1,0 +1,53 @@
+// @title lovely temptation
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 22, 2026
+
+setCps(120/60/4)
+
+
+samples('github:eamon1000000/strudelRepo')
+
+
+//perc arrangement 
+$: arrange(
+  [8, "[[~ ~ ~ ~ mridangam_dhi ~ ~ ~]!3 [~ ~ ~ ~ ~ ~ ~ ~ mridangam_dhi ~ ~ mridangam_dhi ~ ~ sd:6 ~]]/4 , [[~ ~ ~ ~ cp:5 ~ ~ ~]!3 [~ ~ ~ ~ ~ ~ ~ ~ cp:5 ~ ~ cp:5 ~ ~ cp:5 ~]]/4"],
+  [8, "[[~ ~ ~ ~ [mridangam_tha] ~ ~ ~]!3 [~ ~ ~ ~ ~ ~ ~ ~ [mridangam_tha] ~ ~ [mridangam_tha] ~ ~ [mridangam_tha] ~]]/4 , [[~ ~ ~ ~ mridangam_ka:4 ~ ~ ~]!3 [~ ~ ~ ~ ~ ~ ~ ~ mridangam_ka ~ ~ mridangam_ka ~ ~ mridangam_ka:2 ~]]/4"]
+).s().room(0.3)
+
+$: arrange(
+  [8, "~"],
+  [8, "~ [mridangam_tha] ~ ~ ~ ~ ~ [[mridangam_tha:2 mridangam_tha]]"],
+  [8, "~ [linndrum_tb, mridangam_tha] ~ [[linndrum_tb, mridangam_tha:2] [linndrum_tb, mridangam_tha]] ~ [linndrum_tb, cp:5] <[linndrum_tb, mridangam_tha cp:5] ~ ~>  [[linndrum_tb, mridangam_tha] [linndrum_tb, mridangam_tha]]"]
+
+).s().speed(2)
+
+$: arrange(
+  [8, "~"],
+  [8, " ~ [insect:2,gm_bird_tweet:3] ~ ~ ~ ~ ~ [[insect:2,gm_bird_tweet:3] [insect,gm_bird_tweet:4]]"]
+).s().speed(2).sometimesBy(0.5, x=>x.ply(2))
+
+
+//kick arrangement
+$: arrange(
+  [16, "9000_bd ~ ~ 9000_bd ~ ~ ~ ~"]
+).s().gain(0.9)
+
+
+
+//+ coin noise
+$: s("~ ~ ~ ~ luxPerc:5 ~ ~ ~, ~ ~ ~ ~ luxPerc:5 ~ ~ ~").room(0.3).speed("<1 1 1 1 1 1 1 0.5>").sometimesBy(0.2, x=>x.ply(2).speed(0.8)).gain(0.7)
+
+$: note("[[c2 e4 ~ c2 e4 ~ d3 ~ c2 d3 ~ c2 d3 ~ e4 ~]!2 [f2 g4 ~ f2 g4 ~ c3 ~ f2 c3 ~ f2 c3 ~ <g3 d3> ~]!2]/8").s("gm_banjo:0").adsr("0.01:0.4:0.2:0.4").sometimesBy(0.2, x=>x.s("gm_bird_tweet:2, gm_banjo:0 "))
+
+$: note("<[f2*8,f3*8]!4[c2*8, c3!8]!4>").s("gm_fretless_bass").adsr("0.05:0.1:0.1:0.1").chorus(5).lpf(2500).lpenv(rand.range(0.5,4)).gain(0.3)
+
+$: note("[e4 ~ e4 ~ ~ ~ e4 ~ e4 ~ ~ ~ e4 ~ ~ ~ e4 ~ e4 ~ ~ ~ e4 ~ <f4 f4 d4 d4> ~ ~ ~ <e4 e4 d4 d4> ~ ~ ~]").s("gm_blown_bottle").adsr("0.15:0.3:0.1:0.4")
+
+$: note("[c4 ~ ~ ~ ~ ~ ~ ~ g4 ~ ~ ~ ~ ~ ~ ~ f4 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ a3]/4").layer(
+  x=>x.s("piano"),
+  //x=>x.s("gm_bagpipe:3").adsr("0.1:0.3:0.4:0.4").sometimesBy(0.1, x=>x.off(3/8, add(4))).gain(0.3),
+  x=>x.s("gm_agogo").ply("1 1 1 5") 
+)
+
+//$: note("[[c2 e4 ~ c2 e4 ~ d3 ~ c2 d3 ~ c2 d3 ~ e4 ~]!2 [f2 g4 ~ f2 g4 ~ c3 ~ f2 c3 ~ f2 c3 ~ <g3 d3> ~]!2]/8").s("gm_bassoon").adsr("0.01:0.4:0.2:0.4")
