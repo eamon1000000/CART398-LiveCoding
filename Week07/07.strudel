@@ -1,0 +1,41 @@
+// @title W07-04
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 02, 2026
+
+setCps(140/60/4)
+samples('github:eamon1000000/strudelRepo')
+
+$: note("[[c2 c2 c2 c2 ~ d2 d2 d2]!3 [a2 a2 a2 a2 ~ ~ [e3 | c2] [e3 | a2]]]/4").layer(
+  x=>x.s("gm_kalimba").adsr("0.05:0.1:0.1:0.1").chorus(3).lpf(1200).gain(1),
+  x=>x.s("gm_kalimba").adsr("0.01:0.4:0.2:0.4").gain(1).sometimesBy(0.15, x=>x.s("gm_bird_tweet:2, gm_banjo:0")),
+  x=>x.s("gm_kalimba").adsr("0.15:0.4:0.2:0.5").gain(1).degradeBy(0.4)
+).punchcard()
+
+$: "<[1, 8] [5, [3 | 1]]>*2"
+.off(3/8, add(2)).n("<0 2 0 2 0 2 0 5> | <0 2 0 2 0 2 0 8>")
+.off(1/4, add(4))
+.scale("C:ionian").adsr("0.05:0.2:0.1:0.1").layer(
+x=>x.s("gm_blown_bottle").gain(1).sometimesBy(0.15, x=>x.ply(2).speed(1.5)).degradeBy(0.2),
+x=>x.s("gm_blown_bottle").gain(1).adsr("0.01:0.15:0.1:0.2").degradeBy(0.3),
+x=>x.s("gm_acoustic_guitar_steel").gain(1).adsr("0.1:0.1:0.1:0.4").lpf(2500).degradeBy(0.5)
+)
+
+$: s("9000_bd")
+$: s("9000_bd").delay(0.2).gain(0.4).room(0.4).sometimesBy(0.3, x=>x.euclid("[3 | 5]",8)).lpf(1500).lpa("<.5 .25 .1 .2>").lpenv("<4 2 3 6>")
+
+$: s("[luxPerc:5 [luxPerc:5 | [luxPerc:5 luxPerc:5]] ~ [[~ luxPerc:5]| ~]]/2").speed("<1 0.8 1.2 1>").gain(0.5).room(0.3).degradeBy(0.3)
+$: s("luxPerc:5(1,65,<4 5 8>)").speed("<0.6 1.1 0.8 1.3>").gain(0.3).room(0.4).degradeBy(0.9)
+
+$: s("mridangam_ka").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 0 0").speed(0.75)
+$: s("mridangam_ka:3").struct("0 0 1 0 0 0 0 0 0 1 0 0 0 0 1 0")
+$: s("mridangam_chaapu:[0 3 5]").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 0 0").speed(0.75).gain(0.5)
+$: s("mridangam_nam:[0 2 4]").struct("1 0 0 1 0 0 1 1 0 0 1 0 1 0 0 1").speed(0.75).gain(0.5)
+
+$: s("[mridangam_dhi, cp:5]").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 0 0").lpf(800).lpa("<.5 .25 .1 .2>").lpenv("<4 2 3 6>")
+
+$: s("[~!12 9000_bd!4]/4")
+$: s("[[~!4] [~!4] [~!4] [~ [~ [mridangam_dhi, cp:5]] ~ [mridangam_dhi, cp:5] ~ [~ [mridangam_dhi, cp:5]] ~ [[mridangam_dhi, cp:5] | [mridangam_dhi, cp:5] [mridangam_dhi, cp:5]]]]/4").lpf(800).lpa("<.5 .25 .1 .2>/4").lpenv("<4 2 3 6>/4")
+
+$: s("luxPerc:5(5,16)").speed("<1 0.8 1.3 0.7 1.1 0.9 0.6>").gain(0.35).room(0.5)
+$: s("luxPerc:5(3,16,7)").speed("<0.6 1.2 0.8>").gain(0.15).room(0.6).delay(0.15)
