@@ -1,0 +1,106 @@
+// @title temptation baile
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 22, 2026
+
+setCps(122/60/4)
+let synthPat = stack(
+  note("[e4 ~ e4 ~ ~ ~ e4 ~ e4 ~ ~ ~ e4 ~ ~ ~ e4 ~ e4 ~ ~ ~ e4 ~ <f4 f4 d4 d4> ~ ~ ~ <e4 e4 d4 d4> ~ ~ ~]").s("saw").adsr("0.1:0.1:0.1:0.1").chorus(5).lpf(2500).lpenv(rand.range(0.5,4))
+
+) 
+
+let bassPat = stack(
+  note("<[f2*8,f3*8]!4[c3*8, c4!8]!4>").s("gm_synth_bass_2:2").adsr("0.1:0.1:0.1:0.1").chorus(5).lpf(2500).lpenv(rand.range(0.5,4)).gain(1.2),
+  note("[e4 ~ e4 ~ ~ ~ e4 ~ e4 ~ ~ ~ e4 ~ ~ ~ e4 ~ e4 ~ ~ ~ e4 ~ <f4 f4 d4 d4> ~ ~ ~ <e4 e4 d4 d4> ~ ~ ~]").s("saw").adsr("0.1:0.1:0.1:0.1").chorus(5).lpf(2500).lpenv(rand.range(0.5,4))
+
+)
+
+let kick = stack(
+  note("<[f2*8,f3*8]!4[c3*8, c4!8]!4>").s("gm_synth_bass_2:2").adsr("0.1:0.1:0.1:0.1").chorus(5).lpf(2500).lpenv(rand.range(0.5,4)),
+  note("[e4 ~ e4 ~ ~ ~ e4 ~ e4 ~ ~ ~ e4 ~ ~ ~ e4 ~ e4 ~ ~ ~ e4 ~ <f4 f4 d4 d4> ~ ~ ~ <e4 e4 d4 d4> ~ ~ ~]").s("saw").adsr("0.1:0.1:0.1:0.1").chorus(5).lpf(2500).lpenv(rand.range(0.5,4))
+)  
+
+let snare = stack(
+  note("<[f2*8,f3*8]!4[c3*8, c4!8]!4>").s("gm_synth_bass_2:2").adsr("0.1:0.1:0.1:0.1").chorus(5).lpf(2500).lpenv(rand.range(0.5,4)),
+  note("[e4 ~ e4 ~ ~ ~ e4 ~ e4 ~ ~ ~ e4 ~ ~ ~ e4 ~ e4 ~ ~ ~ e4 ~ <f4 f4 d4 d4> ~ ~ ~ <e4 e4 d4 d4> ~ ~ ~]").s("saw").adsr("0.1:0.0.2:0.02:0.1").chorus(5).lpf(2200).lpenv(rand.range(0.5,4)),
+  note("[[c2 ~ ~ ~ e4 ~ ~ ~ c2 ~ ~ c2 d3 ~ ~ ~]!2 [f2 ~ ~ ~ g4 ~ ~ ~ f2 ~ ~ f2 ~ ~ <g3 d3> ~]!2]/8").s("gm_overdriven_guitar:2").adsr("0.01:0.4:0.2:0.4").delay(0.2),
+  s("sd:3(2,4,1)").lpf(2900).lpenv(4).crush(6).sometimesBy(0.4, x=>x.delay(0.2))
+) 
+
+let snare2 = stack(
+  note("<[f2*8,f3*8]!4[c3*8, c4!8]!4>").s("gm_synth_bass_2:2").adsr("0.1:0.1:0.1:0.1").chorus(5).lpf(2500).lpenv(rand.range(0.5,4)),
+  note("[e4 ~ e4 ~ ~ ~ e4 ~ e4 ~ ~ ~ e4 ~ ~ ~ e4 ~ e4 ~ ~ ~ e4 ~ <f4 f4 d4 d4> ~ ~ ~ <e4 e4 d4 d4> ~ ~ ~]").s("saw").adsr("0.1:0.1:0.1:0.1").chorus(5).lpf(2500).lpenv(rand.range(0.5,4)),
+  note("[[c2 e4 ~ c2 e4 ~ d3 ~ c2 d3 ~ c2 d3 ~ e4 ~]!2 [f2 g4 ~ f2 g4 ~ c3 ~ f2 c3 ~ f2 c3 ~ <g3 d3> ~]!2]/8").s("gm_overdriven_guitar:2").adsr("0.01:0.4:0.2:0.4")
+)
+
+let snare3 = stack(
+  note("<[f2*8,f3*8]!4[c3*8, c4!8]!4>").s("gm_synth_bass_2:2").adsr("0.1:0.1:0.1:0.1").chorus(5).lpf(2500).lpenv(rand.range(0.5,4)),
+  note("[[c2 e4 ~ c2 e4 ~ d3 ~ c2 d3 ~ c2 d3 ~ e4 ~]!2 [f2 g4 ~ f2 g4 ~ c3 ~ f2 c3 ~ f2 c3 ~ <g3 d3> ~]!2]/8").s("gm_overdriven_guitar:2").adsr("0.01:0.4:0.2:0.4"),
+  chord("<C F>/2").voicing().s("gm_electric_guitar_clean:5").adsr("0.01:0.2:0.2:0.2").echo("<3 2 3 5 7>", 0.125, 0.4),
+  note("<c2 f2 g>").s("gm_electric_guitar_clean:2, gm_guitar_fret_noise")
+
+)
+
+
+
+$: arrange(
+  [8, synthPat],
+  [8, bassPat],
+  [8,snare],
+  [8, snare2],
+  [8,snare3]
+)
+
+let db = "concertmatemg1"
+samples('github:eamon1000000/strudelRepo')
+let seca = stack(
+   s("9000_bd").struct("1 0 0 0 1 0 0 0 0 0 0 0 0 [1 | 0] 1 0").speed(0.8).gain(0.8),
+   s("mridangam_thom:[0 1 2 3]").struct("1 0 [0 1] 0 1 0 0 0 0 0 0 0 0 [1 | 0] 1 0").speed(0.8),
+   s("mridangam_ta:[3 5 2]").struct("1 0 1 0 1 0 1 0 0 0 1 0 1 0 1 1").speed(0.5),
+)
+let sec11b = stack(
+   s("mridangam_thom:[0 1 2 3]").struct("1 0 0 0 1 0 0 0 0 0 0 0 0 [1 | 0] 1 0").speed(0.8),
+   s("luxPerc:5").struct("1 0 0 1 0 0 0 0 0 0 1 0 1 0 0 0").speed(0.7).gain(0.2).lpf(2500),
+   s("mridangam_chaapu:[0 3 5]").struct("1 0 0 1 0 0 0 0 0 0 1 0 1 0 0 0").speed(0.6).gain(0.5),
+   s("mridangam_dhi:[0 2 4]").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 1 0").speed(0.65),
+)
+let secb = stack(
+   s("9000_bd").struct("1 0 0 0 1 0 0 0 0 0 0 0 0 [1 | 0] 1 0").speed(0.8).gain(0.9),
+   s("mridangam_thom:[0 1 2 3]").struct("1 0 0 0 1 0 0 0 0 0 0 0 0 [1 | 0] 1 0").speed(0.8),
+   s("mridangam_ta:[3 4]").struct("1 0 [1 1] 0 1 0 1 0 0 0 1 0 1 0 1 1").speed(0.6).gain(0.3).delay(0.1),
+   s("luxPerc:5").struct("1 0 0 1 0 0 0 0 0 0 1 0 1 0 0 0").speed(0.7).gain(0.2).lpf(2500),
+   s("mridangam_chaapu:[0 3 5]").struct("1 0 0 1 0 0 0 0 0 0 1 0 1 0 0 0").speed(0.6).gain(0.5),
+   s("[linndrum_tb, insect:2]").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 1 0").speed(0.75).gain(0.2),
+   s("mridangam_dhi:[0 2 4]").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 1 0").speed(0.65),
+)
+let sec1a = stack(
+   s("[linndrum_tb, insect:2]").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 1 0").speed(0.75).gain(0.3),
+   s("mridangam_dhi:[0 2 4]").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 1 0").speed(0.65),
+   s("cp:5").struct("1 0 0 1 0 0 1 1 0 0 1 0 1 0 0 1").speed(1).lpf(800).gain(0.3),
+   s("mridangam_ka:[0 3 5]").struct("1 0 0 1 0 0 1 1 0 0 1 0 1 0 0 1").speed(1).lpf(800).gain(0.3),
+   s("mridangam_nam:[0 2 4]").struct("1 0 0 1 0 0 1 1 0 0 1 0 1 0 0 1").speed(1).lpf(800).gain(0.5),
+)
+let sec1b = stack(
+   s("[linndrum_tb, insect:2]").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 [1 | 0] 0").speed(0.75).gain(0.2),
+   s("mridangam_dhi:[0 2 4]").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 [1 | 0] 0").speed(0.75),
+   s("cp:5").struct("1 0 0 1 0 0 1 1 0 0 1 0 1 0 0 1").speed(1).lpf(800).gain(0.5),
+   s("9000_bd").struct("1 0 0 0 1 0 0 0 0 0 0 0 0 [1 | 0] 1 0").speed(0.8).gain(0.9),
+   s("mridangam_thom:[0 1 2 3]").struct("1 0 0 0 1 0 0 0 0 0 0 0 0 [1 | 0] 1 0").speed(0.8),
+)
+let secWW = stack(
+  s("bg:2").splice(8,  "4 1 [~ ~ 0]@2 3 1 ~ 2").echo(3, 1 ,0.3).gain(0.05).room(0.4),
+  s("9000_bd ~ 9000_bd ~ ~ 9000_bd ~ [9000_bd | ~] ").gain(0.9),
+  s("mridangam_thom:[0 1 2 3](12,32)").n("0 2 3 4").degradeBy(0.2).gain(0.2),
+  s("mridangam_dhi:[0 2 4](5,8)")
+)
+$: arrange(
+  [4, seca],
+  [4, secb],
+  [2, sec1a],
+  [2, sec1b],
+  [3, secb],
+  [1, sec11b],
+  [7, secWW],
+  [1, "~"]
+)
+
