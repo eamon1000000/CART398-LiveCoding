@@ -1,0 +1,60 @@
+// @title lovely chiptune 2
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date Feb 12, 2026
+setcps(120/60/4)
+samples('github:eamon1000000/strudelRepo')
+/////////////////////////////////////////
+//STOP AND START OVER FOR FULL ARRANGMENT
+/////////////////////////////////////////
+//Melody 1 - shakuhachi + kalimba (breathy lead with metallic double)
+$: arrange(
+  [8, "[<7@8 [~ ~ 3 3 3] ~> 4@6 ~!8 <[0 2] ~ [7 9 0 0]> [~ 2] ~!3 4 <2 [2 0 4]> ~ 4 [2 5]]/2"],
+  [8, "[7!8 4!6 2!8 [0 2] [5 2] 4!4 2!2 4 [2 5]]/4"],
+  [16, "[<7 7 7 11> <7 7 7 11> <7 7 7 7> <7 7 7 7> <7 4 8 [5 11]> <7 7 8 [11 5]> <7 9 8 5> <7 2 [8| 9] 6>  <4 [4,9]> 4 <4 [4,9]> 4 <4 [4 4,9 9]> 4 2 <2 -1> 2 <2 2 9 2> <2 2 9 2> <2 2 9 2> 2 2 <[0 2] [0 2] [0 7] [9 5]> <[5 2] [11 5]> <4 5 4 9> <4 5 4 9> <4 5 4 9> <4 5 4 9> 2 2 4 [2 5]]/4"],
+).n().scale("a:major").layer(
+  x=>x.s("piano:1").adsr("0.01:0.4:0.2:0.4").sometimesBy(0.2, x=>x.s("gm_bird_tweet:2, piano:2")),
+  x=>x.s("gm_shakuhachi").adsr("0.1:0.3:0.3:0.4").lpf(3000).gain(0.7).sometimesBy(0.15, x=>x.s("gm_bird_tweet:3")),
+  x=>x.s("gm_kalimba").adsr("0.01:0.2:0.1:0.3").gain(0.5).sometimesBy(0.1, x=>x.ply(2))
+).color("blue")
+//Bell melody → marimba with occasional gm_music_box sparkle
+$: arrange(
+  [9, "[7!8 4!6 2!8]/2"],
+  [15, "~"],
+  [8, "[7!8 4!6 2!8 [0 2] [5 2] 4!4 2!2 4 [2 5]]/4"],
+).n().scale("a:major").layer(
+  x=>x.s("gm_marimba").off(1/2, add(4)).adsr("0.01:0.15:0.1:0.2").gain(0.5).ply("<1 3 2 4 2>"),
+  x=>x.s("gm_music_box").adsr("0.01:0.3:0.2:0.4").gain(0.25).sometimesBy(0.3, x=>x.off(1/4, add(7)))
+).punchcard().color("pink")
+//Baseline → banjo low end + sine sub
+$: arrange(
+  [8, "~"],
+  [24, "[-5@8 -8@6 -10@8 ~ -8@7 ~ -5]/4"]
+).n().scale("d:major").layer(
+  x=>x.s("gm_banjo:0").gain(0.6).adsr("0.01:0.4:0.2:0.4").lpf(1200),
+  x=>x.s("sine").gain(0.4).adsr("0.05:0.3:0.5:0.1"),
+  x=>x.s("gm_fretless_bass").gain(0.2).adsr("0.05:0.1:0.1:0.1").chorus(3)
+)
+//Kicks → 9000_bd layered with a low mridangam hit
+$: arrange(
+  [16, "~"],
+  [16, "[9000_bd, mridangam_dhi]!4"],
+  [8, "[9000_bd, mridangam_dhi](3,8)"]
+).s().gain(0.8).sometimesBy(0.3, x=>x.ply(2)).color("white")
+//Marching band → mridangam + luxPerc coin
+$: arrange(
+  [8, "~"],
+  [8, "[[[mridangam_tha , luxPerc:5] ~ ~ [mridangam_tha , luxPerc:5]][~ ~ [mridangam_tha , luxPerc:5] ~][[mridangam_tha , luxPerc:5] [mridangam_tha , luxPerc:5] ~ [mridangam_tha , luxPerc:5]][~ ~ [mridangam_tha , luxPerc:5] ~] [[mridangam_tha , luxPerc:5] ~ ~ [mridangam_tha , luxPerc:5]][~ ~ [mridangam_tha , luxPerc:5] ~][[mridangam_tha , luxPerc:5] ~ [mridangam_tha , luxPerc:5] ~][[mridangam_tha , luxPerc:5] ~ [mridangam_tha , luxPerc:5] ~][[mridangam_tha , luxPerc:5] [mridangam_tha , luxPerc:5] [mridangam_tha , luxPerc:5] ~][~ ~ [mridangam_tha , luxPerc:5] [mridangam_tha , luxPerc:5]][[mridangam_tha , luxPerc:5] ~ [mridangam_tha , luxPerc:5] ~][[mridangam_tha , luxPerc:5] ~ [mridangam_tha , luxPerc:5] ~][[mridangam_tha , luxPerc:5] ~ ~ [mridangam_tha , luxPerc:5]][~ ~ ~ [mridangam_tha , luxPerc:5]][[mridangam_tha , luxPerc:5] [mridangam_tha , luxPerc:5] [mridangam_tha , luxPerc:5] ~][[mridangam_tha , luxPerc:5] ~ [mridangam_tha , luxPerc:5] [mridangam_tha , luxPerc:5]]]/4"]
+).s().gain(1).room(0.3).color("magenta")
+//Snare → mridangam_tha clap with linndrum accent
+$: arrange(
+  [16, "~"],
+  [8, "[mridangam_tha, linndrum_tb, cp:5](2,4,2)"],
+  [8, "~"],
+  [8, "[mridangam_tha, linndrum_tb, cp:5](2,4,2)"],
+).s().sometimesBy(0.2, x=>x.ply(2).crush(6)).every(8, x=>x.delay(0.25)).gain(0.35)
+//Extra texture layer - luxPerc coin shimmer
+$: arrange(
+  [16, "~"],
+  [16, "~ ~ ~ ~ luxPerc:5 ~ ~ ~, ~ ~ ~ ~ luxPerc:5 ~ ~ ~"]
+).s().room(0.3).speed("<1 1 1 1 1 1 1 0.5>").sometimesBy(0.2, x=>x.ply(2).speed(0.8)).gain(0.5)
