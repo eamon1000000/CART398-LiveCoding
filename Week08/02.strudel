@@ -1,0 +1,27 @@
+// @title W08-02
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date March 15, 2026
+
+samples('github:eamon1000000/strudelRepo')
+
+//KICK PATTERN
+$: s("bd ~ ~ ~ bd ~ ~ bd bd ~ [~ bd ~ ~] ~ ~ ~ ~ ~").n(5).gain(0.3).lpf(2000).lpenv(4).pan(rand.range(0,1)).speed(0.5).sometimesBy(0.3, x=>x.ply(4))
+$: s("luxkick:3 ~ ~ ~ luxkick:3 ~ ~ luxkick:3 luxkick:3 ~ [~ luxkick:3 ~ ~] ~ ~ ~ ~ ~").gain(0.45).lpf(2000).lpenv(4).pan(rand.range(0,1))
+$: s("luxperc:2 ~ ~ ~ luxperc:2 ~ ~ luxperc:2 luxperc:2 ~ [~ luxperc:2 ~ ~] ~ ~ ~ ~ ~").gain(0.05).lpf(2400).lpenv(3).room(0.4).delay(0.1)
+$: s("viscospacedrum_hh ~ ~ ~ viscospacedrum_hh ~ ~ viscospacedrum_hh viscospacedrum_hh ~ [~ viscospacedrum_hh ~ ~] ~ ~ ~ ~ ~").n(0).speed(0.8)
+
+//1 TIME CLAP + VARIATIONS
+$: s("~ ~ viscospacedrum_oh:0 ~").echo(4, 1/7, .3)
+$: s("~ ~ luxperc:5 ~").speed(0.8).sometimesBy(0.2, x=>x.ply(2).speed(rand.range(0.7,1)))
+$: s("~ ~ luxperc:9 ~").speed(2).gain(0.3)
+$: s("~ ~ rm50_cp ~").lpf(3000).lpenv(4).gain(1.3).sometimesBy(0.2, x=>x.ply(4).speed(rand.range(0.7,1)))
+$: s("~ ~ bd:8 ~").gain(0.6)
+
+//PADS UNDERNEATH
+$: note("[f# a# g# e#]/2").degradeBy(0.2).sound("gm_sitar:2").lpf("<800 700 600 500 400 300 200 300 400 500 600 700>")
+$: note("[f# f# a# g# d# e# e# [d# | a# | c#]]").n(rand.range(0,4)).lpf("<800 900 1000 1100>").gain(1).s("sine").cutoff(200).delay(0.5).room(0.5).pan("0.75 0.25 0 1 0.4")
+$: note("[[f#4 | f#5] | [a#4 | a#5] | [g#4 | g#5] | [e#4 | e#5]]/2").gain(0.7).adsr("0.3:0.6:0.001:0.0001").sound("gm_pan_flute").lpf("<600 600 500 400 300 600>").delay(0.5).room(5)
+
+//DANCING MELODY
+$: note("[f#5 a#5 g#5 f#5 e#5 f#5 <a#5 a#5 c#5> ~]").sound("gm_celesta:1, gm_kalimba:1").adsr("0.01:0.3:0.2:0.3").lpf(500).lpenv(2).gain(0.4).sometimesBy(0.4, x=>x.off(5/8, add(3)))
