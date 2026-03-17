@@ -1,0 +1,89 @@
+// @title W08-04
+// @license CC BY-NC-SA 4.0
+// @by eamon1000000 + claude
+// @date March 16, 2026
+
+samples('github:eamon1000000/strudelRepo')
+setcps(120/60/4)
+
+//AMBIENT BED
+$: s("fingercymbal/2").degradeBy(0.75).speed(0.6).sometimesBy(0.4, x => x.speed("0.8")).dist(4).room(4).gain(0.02)
+$: s("luxPerc:5(5,16)").speed("<1 0.8 1.3 0.7 1.1 0.9 0.6>").gain(0.2).room(0.5)
+
+//HARMONICZ
+
+//W06 piano chords
+let pianoChord = chord("[[D@2 Bsus]!4 [G@2 Esus]!4]/8").voicing().sound("gm_orchestral_harp:4").adsr("0.01:0.4:0.4:0.4")
+
+
+//STEREO LOVE melody transposed to D
+let stereoLead = n("[2@3 7 ~ ~ 7@2 6@2 7@2 8@2 7@2 6@2 7 ~ 5@2 6 ~ 4@2 5 ~ 3@2 4 ~ 2@2 ~ ~ ~ ~ ~!26]/4")
+.scale("D3:major").layer(
+  x=>x.s("gm_blown_bottle").gain(1).adsr("0.01:0.15:0.1:0.2"),
+  x=>x.s("gm_orchestral_harp:4").gain(1).adsr("0.1:0.3:0.2:0.4").lpf(3000)
+)
+
+// STEREO LOVE melody chopped&echoed
+let stereoChop = n("[7@2 6@2 7@2 8@2 7@2 6@2 ~ ~ 5@2 6 ~ 4@2 5 ~ ~ ~!10]/4")
+.scale("D3:major").s("gm_blown_bottle").gain(1).adsr("0.01:0.1:0.05:0.1")
+.echo(2, 0.125, 0.4).room(0.3).pan(rand.range(0.2,0.8))
+
+//offbeat stabs transposed to D
+let stabs = "<[1, 8] [5, [3 | 1]]>*2"
+.off(3/8, add(2)).n("<0 2 0 2 0 2 0 5> | <0 2 0 2 0 2 0 8>")
+.off(1/4, add(4))
+.scale("D4:major").adsr("0.05:0.2:0.1:0.1").layer(
+  x=>x.s("gm_blown_bottle").gain(0.5).adsr("0.01:0.15:0.1:0.2").degradeBy(0.3),
+  x=>x.s("gm_orchestral_harp").gain(0.4).adsr("0.1:0.3:0.2:0.4").lpf(2000).degradeBy(0.5).sometimesBy(0.4, x=>x.s("gm_orchestral_harp, gm_bird_tweet"))
+)
+
+//Bassline
+let bass = note("[[d2 d2 d2 d2 ~ a2 a2 a2]!3 [g2 g2 g2 g2 ~ ~ [b2 | d2] [b2 | e2]]]/4").layer(
+  x=>x.s("gm_kalimba").adsr("0.05:0.1:0.1:0.1").chorus(3).lpf(1200).gain(0.7),
+  x=>x.s("gm_kalimba").adsr("0.01:0.4:0.2:0.4").gain(0.5).degradeBy(0.4)
+)
+//subBass
+let subBass = note("[d2 ~ ~ ~ ~ ~ ~ ~ d2 ~ ~ ~ a1 ~ ~ ~]/2")
+.s("gm_synth_bass_2").adsr("0.01:0.3:0.6:0.3").lpf(400).gain(0.8)
+
+// === PERCUSSION ===
+
+// W06 tambourine layers
+let tambLayer = stack(
+  s("tambourine:<0 0 2>!4").gain(0.8).ply("<2 3>"),
+  s("luxperc:2 ~").speed("0.2 | 0.23 | 0.32 | 0.34 | 0.25").degradeBy(0.8).sometimesBy(0.2, x=>x.ply(2)).echo(2, 1, 0.3).room(0.2).size(2).gain(0.2)
+)
+
+// funk (light)
+let mridLight = stack(
+  s("mridangam_thom:[0 1 2 3]").struct("1 0 [0 1] 0 1 0 0 0 0 0 0 0 0 [1 | 0] 1 0").speed(0.8).gain(0.5),
+  s("mridangam_ta:[3 5 2]").struct("1 0 1 0 1 0 1 0 0 0 1 0 1 0 1 1").speed(0.5).gain(0.3)
+)
+
+// funk (full)
+let mridFull = stack(
+  s("9000_bd").struct("1 0 0 0 1 0 0 0 0 0 0 0 0 [1 | 0] 1 0").speed(0.8).gain(0.7),
+  s("mridangam_thom:[0 1 2 3]").struct("1 0 0 0 1 0 0 0 0 0 0 0 0 [1 | 0] 1 0").speed(0.8),
+  s("mridangam_ta:[3 4]").struct("1 0 [1 1] 0 1 0 1 0 0 0 1 0 1 0 1 1").speed(0.6).gain(0.3).delay(0.1),
+  s("mridangam_chaapu:[0 3 5]").struct("1 0 0 1 0 0 0 0 0 0 1 0 1 0 0 0").speed(0.6).gain(0.5),
+  s("mridangam_dhi:[0 2 4]").struct("0 0 0 1 0 0 1 0 0 0 1 0 1 0 1 0").speed(0.65)
+)
+
+
+//insects as transition FX
+let insectFX = s("insect | insect:3").euclid("<[3 | 7] [4 |2] 2 6>", 8).gain(0.4).room(0.3).chorus(.5).sometimes(x=>x.ply(3))
+
+//kick pattern
+let kick = s("bd").struct("[1 0 0 0 1 0 0 0 1 0 0 1 0 0 1 0]").gain(0.6)
+
+//ARRANGEMENT
+
+$: arrange(
+  [4, stack(pianoChord, tambLayer)],
+  [4, stack(pianoChord, stereoLead, tambLayer)],
+  [4, stack(stereoLead, bass, subBass, mridLight, tambLayer, kick)],
+  [4, stack(stereoLead, bass, subBass, mridFull, tambLayer, kick)],
+  [4, stack(stereoChop, stabs, pianoChord, insectFX)],
+  [4, stack(stereoLead, stabs, bass, subBass, mridFull, tambLayer, kick)],
+  [4, stack(pianoChord, tambLayer, stereoChop)]
+)
