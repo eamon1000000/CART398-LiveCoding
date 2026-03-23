@@ -1,6 +1,6 @@
  
 solid(0.4,1,4)
-  	.diff(shape([100, 10, 8, 6, 1, 10, 8, 6].smooth(10).fast(4),[1,0.8,0.7, 0.6].smooth(10).fast(4)).repeat(20,10))	
+  	.diff(shape([100, 10, 8, 6, 1, 10, 8, 6].smooth(10).fast(4),[1,0.8,0.7, 0.6].smooth(10).fast(4)).repeat(50,25)).scale([0.5,1,1.5,2,1,5,1].smooth(10))	
 	.out(o2)
 
 
