@@ -1,0 +1,22 @@
+a.setBins(4)
+a.setSmooth(0.5)
+a.setCutoff(2)
+a.setScale(10)
+
+
+voronoi(0.0001,100,0).add(osc(1,1,3)).kaleid(4).blend(o0)
+.out(o3)
+
+
+
+// o0 (can now blend with o1)
+src(o3).mask(
+        shape(100, 0, 0)
+          .add(shape(100, 0.2, 0.1).scrollY(() => a.fft[0]*-0.5-0.1), 0.8)
+          .add(shape(100, 0.2, 0.1).scrollY(() => a.fft[0]*0.5+0.1), 0.8)
+          .add(shape(100, 0.2, 0.1).scrollX(() => a.fft[0]*-0.5-0.1), 0.8)
+          .add(shape(100, 0.2, 0.1).scrollX(() => a.fft[0]*0.5+0.1), 0.8)
+          .scale(1, 0.5)
+      ).color(1,1,1).scale(0.2,1).out(o0)
+
+render(o0)
