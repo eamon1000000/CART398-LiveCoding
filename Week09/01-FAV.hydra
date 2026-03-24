@@ -1,9 +1,6 @@
- 
 solid(0.4,1,4)
-  	.diff(shape([100, 10, 8, 6, 1, 10, 8, 6].smooth(10).fast(4),[1,0.8,0.7, 0.6].smooth(10).fast(4)).repeat(50,25)).scale([0.5,1,1.5,2,1,5,1].smooth(10)).invert(0.4)	
-	.out(o2)
-
-
+  .diff(shape([100, 10, 8, 6, 1, 10, 8, 6].smooth(10).fast(4),[1,0.8,0.7, 0.6].smooth(10).fast(4)).repeat(50,25)).scale([0.5,1,1.5,2,1,5,1].smooth(10)).invert(0.4)
+  .out(o2)
 
 noise(1000,10).color(1, 0.01, 0.1).out(o1)
 
@@ -41,5 +38,20 @@ src(o1).invert(0.1).mask(
     .scale(1, 0.5)
 ).color(1, 1, 0.01).scale([1.7, 1.65, 1.6, 1.65].smooth(10).fast(10) , 1).scrollY(() => Math.cos(time*10)*0.02).blend(o2).out(o0)
 
-noise(1000,100).rotate(10,1).blend(o0,0.8).out(o3)
+
+noise(1000,100).rotate(10,1).blend(o0,0.8)
+  .add(
+    solid(0.1, 1, 0.1).mask(
+      shape(100, 0.03, 0).scale(1,0.75)
+        .scrollY(() => 0.12 + Math.sin(time*3)*0.005)
+        .scrollX(-0.19)
+        .add(shape([100,4].fast(3), [0.03, 0.03].fast(3), 0).scale([1,0.1].fast(3),[0.75, 8].fast(3))
+          .scrollY(() => 0.12 + Math.sin(time*3)*0.005)
+          .scrollX(-0.25))
+        .scale(1, 0.5)
+        .scale([1.7, 1.65, 1.6, 1.65].smooth(10).fast(10), 1)
+        .scrollY(() => Math.cos(time*10)*0.02)
+    )
+  ).out(o3)
+
 render(o3)
