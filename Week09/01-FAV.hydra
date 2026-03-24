@@ -1,13 +1,13 @@
  
 solid(0.4,1,4)
-  	.diff(shape([100, 10, 8, 6, 1, 10, 8, 6].smooth(10).fast(4),[1,0.8,0.7, 0.6].smooth(10).fast(4)).repeat(50,25)).scale([0.5,1,1.5,2,1,5,1].smooth(10))	
+  	.diff(shape([100, 10, 8, 6, 1, 10, 8, 6].smooth(10).fast(4),[1,0.8,0.7, 0.6].smooth(10).fast(4)).repeat(50,25)).scale([0.5,1,1.5,2,1,5,1].smooth(10)).invert(0.4)	
 	.out(o2)
 
 
 
 noise(1000,10).color(1, 0.01, 0.1).out(o1)
 
-src(o1).mask(
+src(o1).invert(0.1).mask(
   shape(4, 0.002, 0.001)
     .add(shape(4,0.2,0.001).scrollY(0).scrollX(0),100)//centre again to ensure its there across scaling
     .add(shape(100, 0.2, 0).scrollX(0.1),100)
@@ -41,5 +41,5 @@ src(o1).mask(
     .scale(1, 0.5)
 ).color(1, 1, 0.01).scale([1.7, 1.65, 1.6, 1.65].smooth(10).fast(10) , 1).scrollY(() => Math.cos(time*10)*0.02).blend(o2).out(o0)
 
-noise(1000,10).blend(o0,0.8).out(o3)
+noise(1000,100).rotate(10,1).blend(o0,0.8).out(o3)
 render(o3)
