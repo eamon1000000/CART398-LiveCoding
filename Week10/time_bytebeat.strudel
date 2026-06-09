@@ -1,0 +1,48 @@
+// @title Time Bytebeat
+// @license CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// @by eamon1000000
+// @date June 9, 2026
+
+setCps(100/60/4)
+
+let sing1 = stack(
+  s("sd:1").struct("[1 0 0 1 0 0 1 0 0 0 1 1 1 0 1 0]").gain(0.4),
+  s("rim:4").struct("[0 0 0 0 0 0 1 0 0 0 0 1 1 0 1 0]").speed(0.7).gain(0.4)
+)
+
+let sing2 = stack(
+  s("sd:1").struct("[1 0 0 1 0 0 1 1 1 0 1 1 1 0 1 0]").gain(0.4),
+  ("rim:4").struct("[0 0 0 0 0 0 1 1 1 0 0 1 1 0 1 0]").speed(0.7).gain(0.4)
+)
+
+let sing3 = stack(
+  s("sd:1").struct("[1 0 0 1 0 0 1 0 0 0 1 0 1 0 0 0]").gain(0.4)
+)
+
+let sing4 = stack(
+  s("sd:1").struct("[1 0 0 1 0 0 1 0 0 0 1 0 1 0 0 1]").gain(0.4)
+)
+
+$: arrange(
+  [16, "~"],
+    [2, sing3],
+    [2, sing4],
+   [4, sing1],
+   [4, sing2],
+  [4, sing1],
+   [4, sing2],
+  [4, "~"]
+)
+$: s("bd:2!4").speed(0.7)
+
+let line1 = note("[[[a#,f#] [c#,a#]]!8 [[g#,d#] [b,g#]]!8 [[f#,d#] [a#,f#]]!8 [[g#,f#, d#] [a#,g#,f#]]!8]/8").s("bytebeat:1, gm_pan_flute:2, z_tan,wt_digital:2").adsr("0.05:0.05:0.2:0.2")
+let line2 = note("[[[a#,f#, d#] [c#,a#,f#]]!8 [[g#,d#] [b,g#]]!8 [[f#, d#] [a#,f#]]!8 [[f#, d#] [a#,f#]]!8]/8").s("bytebeat, gm_pan_flute, z_tan,wt_digital").adsr("0.05:0.05:0.2:0.2")
+
+$: arrange(
+  // [8,line1],
+  // [8,line2]
+)
+
+$: note("[a#4 ~ ~ ~ ~ ~ c#5 f#4 ~ ~ ~ ~ ~ ~ f#4 g#4]/2").s("supersaw, square").gain(0.7)
+
+$: s("sd:3(2,4,1)").speed(0.7).room(0.4)
