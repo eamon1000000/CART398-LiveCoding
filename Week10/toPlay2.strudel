@@ -1,0 +1,22 @@
+$: n("[[7 4] [4 <7 9>] [1 4] [7 7] [6 6] [4 4] [8 7] [6 ~]]/4".off(3/8, add("[1 | 0 | 5]")).off(1.5/8, add("[3 | 0]")).add(3)).scale("A:major").s("piano, gm_brass_section").adsr("0.05:0.05:0.1:0.3").room(0.6).lpf(sine.range(1000,2700).slow(2)).gain(01)
+.sometimesBy(0.2, x=>x.s("gm_brass_section, gm_tubular_bells, gm_bird_tweet:2")).room(0.4)
+
+
+  $:  s("sd:0").struct("[1 0 1 0 1 0 0 0 1 0 1 0 1 0 0 0]").gain(0.4)
+  $:  s("sd:3").struct("[1 0 1 0 0 0 0 1 1 0 1 1 1 0 0 0]").gain(0.4)
+
+  $:  s("bd:1").struct("[1 0 0 1 0 0 1 0 0 0 1 0 1 0 1 1 ]").gain(0.4)
+
+ $: s("hh!16").n(irand(0,4)).degradeBy(0.2)
+
+$: s("bd:2!2")
+
+
+$: n("[[7 4] [4 <7 9>] [1 4] [7 7] [6 6] [4 4] [8 7] [6 ~]]/4".off(3/8, add("[1 | 0 | 5]")).off(1.5/8, add("[3 | 0]")).add(3)).scale("A:major").s("sine").adsr("0.05:0.05:0.1:0.3").room(0.6).lpf(sine.range(1000,2700).slow(2)).gain(01)
+.sometimesBy(0.4, x=>x.s("square").echo(3,1/8, 0.2)).room(0.4)
+
+ //$: n("7!4 1!4".off(3/8, x=>x.add("<2 4 7 1>")).off(1/8, x=>x.add("7"))).scale("A:major").s("gm_synth_bass_2:4").adsr("0.05:0.05:0.1:0.3").ply(2).pan(1)
+
+// $: s("sd(2,4,1)")
+$: s("bd!4")
+$: s("~ ~ ~ ~ sd ~ ~ ~ ~ ~ sd  <~ sd> ~ ~ ~ ~")//off beat
