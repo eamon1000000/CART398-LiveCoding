@@ -1,0 +1,69 @@
+let bass = note("<[G, C, E, C, E4] [G, C, E, Cb, E4] [G, C, F, A, E4] [G, C, F, A, G4]>").s('gm_synth_bass_2')
+
+let birds = ("<[G, C, E, C, E4] [G, C, E, Cb, E4] [G, C, F, A, E4] [G, C, F, A, G4]>").s('gm_bird_tweet').n(irand(6)).room(0.4)
+$: arrange(
+  [4, bass],
+  [4, stack(bass,birds)]
+)
+
+$: note("<[E G C C E4]!2 [E G Cb C E4]!2 [F G A C E4]!2 [F G A C G4]!2>*2").s("gm_electric_guitar_jazz").adsr("0.03:0.3:0.4:0.6").gain(2).degradeBy(0.1).sometimesBy(0.3, x=>x.ply(2))
+
+
+let sample = "sd"
+let sample2= "sd:4"
+let sample3 = "hh:2"
+
+let sing1 = stack(
+  s(sample3).struct("[1 0 0 1 0 0 1 0 0 0 1 1 1 0 1 0]").gain(0.4), 
+  s(sample2).struct("[1 0 1 0 0 0 0 1 0 0 1 0 1 0 1 1]").gain(0.4),
+)
+
+let sing2 = stack(
+  s(sample3).struct("[1 0 0 1 0 0 1 1 1 0 1 1 1 0 1 0]").gain(0.4),
+  s(sample2).struct("[1 0 1 1 0 0 0 1 0 0 1 0 1 1 1 0]").gain(0.4),
+  ("rim:4").struct("[0 0 0 0 0 0 1 1 1 0 0 1 1 0 1 0]").speed(0.7).gain(0.4)
+)
+
+let sing3 = stack(
+  s(sample2).struct("[1 0 0 1 0 0 1 0 0 0 1 0 1 0 0 0]").gain(0.4)
+)
+
+let sing4 = stack(
+  s(sample2).struct("[1 0 0 1 0 0 1 0 0 0 1 0 1 0 0 1]").gain(0.4)
+)
+
+let hips1 = stack(
+  s(sample).struct("[1 0 0 1 0 0 1 0 0 0 1 0 1 0 0 0]").gain(0.4)
+)
+let hips2 = stack(
+  s(sample).struct("[1 0 1 1 0 0 1 0 0 0 1 0 1 0 0 0]").gain(0.4)
+)
+
+let hips3 = stack(
+  s(sample).struct("[1 0 1 1 0 0 1 0 0 0 1 0 1 0 0 1]").gain(0.4)
+)
+
+let hips4 = stack(
+  s(sample).struct("[1 1 1 1 0 0 1 1 1 0 1 0 1 0 0 0]").gain(0.4)
+)
+
+$: arrange(
+  //[12, "~"],
+  //   [2, sing3],
+  //   [2, sing4],
+  //  [4, sing1],
+  //  [4, sing2],
+  // [4, sing1],
+  //  [4, sing2],
+//  [4, "~"]
+  [1, hips1],
+   [1, hips2],
+  [1, hips3],
+  [1, hips4],
+   [1, stack(hips1, sing1)],
+   [1, stack(hips2, sing2)],
+  [1, stack(hips3, sing3)],
+  [1, stack(hips4, sing4)]
+).echo(1, 1/4, 0.2).lpf(sine.range(800,2400).slow(3))//.punchcard()
+
+$: s("bd:4!4")
