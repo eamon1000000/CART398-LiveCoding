@@ -1,0 +1,42 @@
+setcps(110/60/4)
+
+ $: n("<6 2>").euclidRot("<5 7 6>",8,"<1 2 3 4>").scale("C:minor").s("square").ply(2).lpf(2000)
+
+ $: n("<6 2>".off(3/8, x=>x.add("<0 2> 5 [0 | 11] "))).euclidRot(5,8,"<1 2 3 4>").scale("C:minor").s("saw").ply(2)
+
+ $: n("0").euclidRot(3,16,14).scale("C:minor").s("supersaw")
+ $: s("bd:1(3,16,14)")
+
+ $: s("sd, cp:2").struct("[1 0 0 [0 | 1 | 0] 1 0 0 0 1 0 0 1 0 0 1 0 1 0 0 0 1 0 0 0 1 0 0 1 0 [0 | 1] 1 0]/2").gain(0.4)
+
+  $: s("bd:4!8").degradeBy(0.3)
+
+ 
+let sample = "sd:1"
+
+let sing1 = stack(
+  s(sample).struct("[1 0 0 1 0 0 1 0 0 0 1 1 1 0 1 0]").gain(0.4),
+  s("rim:4").struct("[0 0 0 0 0 0 1 0 0 0 0 1 1 0 1 0]").speed(0.7).gain(0.4)
+)
+
+let sing2 = stack(
+  s(sample).struct("[1 0 0 1 0 0 1 1 1 0 1 1 1 0 1 0]").gain(0.4),
+  ("rim:4").struct("[0 0 0 0 0 0 1 1 1 0 0 1 1 0 1 0]").speed(0.7).gain(0.4)
+)
+
+let sing3 = stack(
+  s(sample).struct("[1 0 0 1 0 0 1 0 0 0 1 0 1 0 0 0]").gain(0.4)
+)
+
+let sing4 = stack(
+  s(sample).struct("[1 0 0 1 0 0 1 0 0 0 1 0 1 0 0 1]").gain(0.4)
+)
+
+$: arrange(
+  [16, "~"],
+   [4, sing1],
+   [4, sing2],
+  [4, sing1],
+   [4, sing2],
+  [4, "~"]
+)
